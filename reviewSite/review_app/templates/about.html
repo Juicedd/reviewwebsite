@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Your Website</title>
+    <!-- Include Bootstrap CSS (if you're using it) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include your custom CSS file (if any) -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Include navigation bar -->
+    {% include 'navigation_bar.html' %}
+
+    <div class="container mt-5">
+        <h1>About Us</h1>
+        <p>Welcome to Our Website!</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in arcu ut felis tristique suscipit. Donec non mauris vitae odio semper fermentum. Fusce tincidunt justo sit amet mauris rutrum, in ultrices urna tincidunt.</p>
+        <p>Curabitur congue dolor id justo malesuada, sit amet bibendum nisi lobortis. Integer eget odio vitae tortor hendrerit dignissim. Phasellus sem nisl, ullamcorper sit amet dui non, aliquet sollicitudin enim.</p>
+        <p>Donec vel eros vitae mauris lacinia vehicula. Nullam sed neque libero. Suspendisse potenti. Nam sodales mauris non tortor finibus consectetur.</p>
+    </div>
+
+    <!-- Include Bootstrap JS (if you're using it) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

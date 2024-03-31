@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album List</title>
+    <!-- Include Bootstrap CSS (if you're using it) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include your custom CSS file (if any) -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include 'navigation_bar.html' %}
+    <div class="container mt-4"> <!-- Wrap content in a container for responsiveness -->
+        <h1 class="text-center mb-4">Album List</h1> <!-- Make title centered and add margin bottom -->
+        <ul class="list-unstyled"> <!-- Remove default list styling -->
+            {% for album in albums %}
+                <li class="mb-3">
+                    <h2><a href="{% url 'album_detail' pk=album.pk %}" class="text-dark">{{ album.title }}</a></h2> <!-- Add class for dark text -->
+                    <p class="mb-1">Artist: {{ album.artist }}</p> <!-- Add margin bottom -->
+                    <p class="mb-0">Release Date: {{ album.release_date }}</p> <!-- Add margin bottom -->
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

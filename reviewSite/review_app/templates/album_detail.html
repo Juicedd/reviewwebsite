@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ album.title }} - Album Detail</title>
+</head>
+<body>
+    <h1>{{ album.title }} - Album Detail</h1>
+    <p>Artist: {{ album.artist }}</p>
+    <p>Release Date: {{ album.release_date }}</p>
+    
+    {% if album.cover_image %}
+        <img src="{{ album.cover_image.url }}" alt="{{ album.title }} Cover Image">
+    {% else %}
+        <p>No cover image available</p>
+    {% endif %}
+
+    <h2>Reviews</h2>
+    {% if album.review_set.all %}
+        <ul>
+            {% for review in album.review_set.all %}
+                <li>
+                    <p>User: {{ review.user_name }}</p>
+                    <p>Rating: {{ review.rating }}/5</p>
+                    <p>Comment: {{ review.comment }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No reviews available for this album</p>
+    {% endif %}
+    
+    <!-- You can add more details or features here -->
+</body>
+</html>

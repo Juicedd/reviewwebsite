@@ -1,0 +1,17 @@
+.navbar {
+    background-color: #44803F; /* Green color */
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: white; /* Text color */
+}
+
+.navbar-brand:hover,
+.navbar-nav .nav-link:hover {
+    color: #f8f9fa; /* Text color on hover */
+}
+
+body {
+    background-color: #B4CF66; /* Set background color */
+}

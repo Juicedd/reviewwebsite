@@ -2,17 +2,19 @@
 
 {% block content %}
 
-    <div class="container mt-4"> <!-- Wrap content in a container for responsiveness -->
-        <h1 class="text-center mb-4">Album List</h1> <!-- Make title centered and add margin bottom -->
-        <ul class="list-unstyled"> <!-- Remove default list styling -->
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Album List</h1>
+        <div class="d-flex flex-row flex-wrap justify-content-around"> 
             {% for album in albums %}
-                <li class="mb-3">
-                    <h2><a href="{% url 'album_detail' pk=album.pk %}" class="text-dark">{{ album.title }}</a></h2> <!-- Add class for dark text -->
-                    <p class="mb-1">Artist: {{ album.artist }}</p> <!-- Add margin bottom -->
-                    <p class="mb-0">Release Date: {{ album.release_date }}</p> <!-- Add margin bottom -->
-                </li>
+                <div class="card">
+                    <img class="card-img-top" src={{ album.cover_image }} alt="Image not found">
+                    <div class="card-body">
+                        <a href="{% url 'album_detail' pk=album.pk %}" class="text-dark"> <h5 class="card-title">{{ album.title }}</h5> </a>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ album.artist }}</h6>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 
 {% endblock content %}

@@ -1,17 +1,34 @@
+:root {
+    /* Adobe Theme Colours */
+    --primary: #D9A577;
+    --primary-light:#F27329;
+    --primary-dark:#A63B14;
+    --contrast-light: #F238C1;
+    --contrast-dark: #070A0D;
+}
+
 .navbar {
-    background-color: #44803F; /* Green color */
+    background-color: var(--primary-light);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
-.navbar-brand,
-.navbar-nav .nav-link {
-    color: white; /* Text color */
+.navbar-brand, 
+.navbar-nav,
+.nav-link {
+    color: var(--contrast-dark);
 }
 
-.navbar-brand:hover,
-.navbar-nav .nav-link:hover {
-    color: #f8f9fa; /* Text color on hover */
+.navbar-brand:hover, 
+.nav-link:hover {
+    color: var(--contrast-light);
 }
 
 body {
-    background-color: #B4CF66; /* Set background color */
+    background-color: var(--primary);
+}
+
+.card {
+    background-color: var(--primary-light);
+    width: 18rem;
+    margin: 1rem;
 }

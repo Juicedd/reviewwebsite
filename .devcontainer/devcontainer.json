@@ -1,36 +1,45 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/debian
 {
-    "name": "Review Site Development Environment",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "app",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-    // Use this environment variable if you need to bind mount your local source code into a new container.
-    "remoteEnv": {
-        "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+    "name": "${localEnv:PROJECT_A_NAME:my_project_name}",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "ENV_NAME": "${localEnv:PROJECT_A_NAME:my_project_name}",
+            "PYTHON_VER": "${localEnv:PYTHON_VER:3.12}"
+        }
     },
-    
-    // Features to add to the dev container. More info: https://containers.dev/features.
-    // "features": {},
-    // Configure tool-specific properties.
     "customizations": {
+        "settings": {
+            "python.defaultInterpreterPath": "/opt/conda/envs/${localEnv:PROJECT_A_NAME:my_project_name}/bin/python3",
+            "python.selectInterpreter": "/opt/conda/envs/${localEnv:PROJECT_A_NAME:my_project_name}/bin/python3"
+        },
         "vscode": {
             "extensions": [
+                // Documentation Extensions
+                "purocean.drawio-preview",
+                "redhat.vscode-yaml",
+                "yzhang.markdown-all-in-one",
+                // Docker Supporting Extensions
+                "ms-azuretools.vscode-docker",
+                "ms-vscode-remote.remote-containers",
+                // Python Extensions
                 "ms-python.python",
                 "ms-python.debugpy",
                 "batisteo.vscode-django",
-                "esbenp.prettier-vscode",
-                "mtxr.sqltools-driver-sqlite"
+                // Formatting Extensions
+                "esbenp.prettier-vscode"
             ]
         }
-    }
-
-    // Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "pip install -r requirements.txt"
-
-    // Use 'forwardPorts' to make a list of ports inside the container available locally.
-    // "forwardPorts": [],
-
-    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-    // "remoteUser": "root"
+    },
+    // Optional, mount local volume:
+    // "mounts": [
+    //     "source=${localEnv:DATA_FOLDER},target=/home/csv,type=bind,consistency=cache"
+    // ],
+    "remoteEnv": {
+        "MY_VAR": "${localEnv:MY_VAR:test_var}"
+    },
+    "runArgs": [
+        "--env-file",
+        ".devcontainer/devcontainer.env"
+    ]
+    // "postCreateCommand": "python3 tests/test1.py"
 }

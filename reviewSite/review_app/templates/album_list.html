@@ -3,7 +3,21 @@
 {% block content %}
 
     <div class="container mt-4">
-        <h1 class="text-center mb-4">Album List</h1>
+        <div>
+            <h1 class="text-center mb-4">Album List</h1>
+            <hr />
+            <form class="d-flex justify-content-around" method="GET">
+                <div class="input-group">
+                    <input class="form-control" type="search" name="album_search" placeholder="Filter Albums">
+                    <span class="input-group-text">
+                        <button type="submit" class="btn btn_primary btn-sm">Search</button>
+                    </span>
+                    <span class="input-group-text">
+                        <button action="{% url 'album_list' %}" class="btn btn_primary btn-sm">Reset</button>
+                    </span>
+                </div>
+            </form>
+        </div>
         <div class="d-flex flex-row flex-wrap justify-content-around"> 
             {% for album in albums %}
                 <div class="card">

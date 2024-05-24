@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
 from django.views.generic import ListView, DetailView
 from .models import Album, Review
 
@@ -7,6 +8,14 @@ def album_list(request):
     View to display a list of all albums.
     """
     albums = Album.objects.all()
+    query = request.GET.get('album_search')
+
+    if query != '' and query is not None:
+        albums = albums.filter(
+            Q(title__icontains=query) |
+            Q(artist__icontains=query)
+            ).distinct()
+        
     return render(request, 'album_list.html', {'albums': albums})
 
 def album_detail(request, pk):
@@ -14,7 +23,7 @@ def album_detail(request, pk):
     View to display details of a specific album.
     """
     album = get_object_or_404(Album, pk=pk)
-    return render(request, 'album_detail.html', {'album': album})
+    return render(request, 'album_detail.html', {'album': album})   
 
 def about(request):
     """

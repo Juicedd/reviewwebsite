@@ -123,8 +123,7 @@ STATIC_URL = 'static/'
 
 # Define the directories where Django should look for static files.
 STATICFILES_DIRS = [
-    BASE_DIR / "review_app/static",
-    
+    BASE_DIR / "static",
 ]
 
 # Default primary key field type

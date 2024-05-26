@@ -28,7 +28,7 @@ def album_detail(request, pk):
 def about(request):
     """
     View to display the about page.
-    """    
+    """
     return render(request, 'about.html')
 
 def contact(request):

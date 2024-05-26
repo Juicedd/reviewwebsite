@@ -84,17 +84,16 @@ The following programs are required to have been installed on your computer. See
 
 ### Installation
 
-1. Fork the project
-2. Clone your repository wherever you like.
+1. Clone the repository wherever you like.
    ```sh
-   git clone https://github.com/your-username/reviewwebsite.git
+   git clone https://github.com/Juicedd/reviewwebsite.git
    ```
-3. Open the project in a vscode dev container. 
-4. Once the project is opened in the dev container. Create a python environment with .venv as follows.
-5. ctrl + shift + p
-6. write: Python: Create Environment...
-7. select: Venv
-8. select the global python version
+2. Open the project in a vscode dev container. 
+3. Once the project is opened in the dev container. Create a python environment with .venv as follows.
+4. ctrl + shift + p
+5. write: Python: Create Environment...
+6. select: Venv
+7. select the global python version
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -103,11 +102,7 @@ The following programs are required to have been installed on your computer. See
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] User Login
-- [ ] Reviews
-    - [ ] Review Template
-    - [ ] Create a Review
-    - [ ] See others Review
+<p align="left">(<a href="https://github.com/users/Juicedd/projects/1">The Roadmap is visible in the reviewwebsite project field.</a>)</p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -118,14 +113,15 @@ The following programs are required to have been installed on your computer. See
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+If you have a suggestion that would make this better, please reach out to us and we will discuss all suggestions.
 Don't forget to give the project a star! Thanks again!
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Add your idea to the reviewwebsite project.
+2. After the pitch is approved convert the item to an issue.
+4. Create a branch from the issue.
+5. Commit your Changes
+6. Push to the Branch 
+7. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -21,7 +21,7 @@
         <div class="d-flex flex-row flex-wrap justify-content-around"> 
             {% for album in albums %}
                 <div class="card">
-                    <img class="card-img-top" src={{ album.cover_image }} alt="Image not found">
+                    <img class="card-img-top" src={{ album.cover_image.url }} alt="Image not found">
                     <div class="card-body">
                         <a href="{% url 'album_detail' pk=album.pk %}" class="text-dark"> <h5 class="card-title">{{ album.title }}</h5> </a>
                         <h6 class="card-subtitle mb-2 text-muted">{{ album.artist }}</h6>

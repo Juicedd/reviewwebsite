@@ -32,3 +32,8 @@ body {
     width: 18rem;
     margin: 1rem;
 }
+
+.input-group {
+    margin-bottom: 1rem;
+    width: 50%;
+}

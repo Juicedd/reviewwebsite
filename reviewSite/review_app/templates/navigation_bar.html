@@ -1,8 +1,22 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'album_list' %}">RJ Reviews</a>
-
     <div class="navbar-nav">
+      <span class="navbar-brand">RJ Reviews</span>
+    </div>
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="{% url 'album_list' %}">Home</a>
+      <div class="dropdown">
+        <a class="nav-item nav-link dropdown-toggle" type="button" id="dropdownMenuLogin" data-bs-toggle="dropdown" aria-expanded="false">
+          Login
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLogin">
+          <form class="form-horizontal" method="post" accept-charset="UTF-8">
+            <input class="form-control form-control-sm login" type="text" name="username" placeholder="Username.."><br>
+            <input class="form-control form-control-sm login" type="password" name="password" placeholder="Password.."><br>
+            <input class="btn btn-sm btn-login" type="submit" name="submit" value="Login">
+          </form>
+        </ul>
+      </div>
       <a class="nav-item nav-link" href="{% url 'contact' %}">Contact</a>
       <a class="nav-item nav-link" href="{% url 'about' %}">About</a>
     </div>

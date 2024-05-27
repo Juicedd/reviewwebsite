@@ -25,8 +25,9 @@
                 "ms-python.python",
                 "ms-python.debugpy",
                 "batisteo.vscode-django",
-                // Formatting Extensions
-                "esbenp.prettier-vscode"
+                "esbenp.prettier-vscode",
+                "mtxr.sqltools-driver-sqlite",
+                "mechatroner.rainbow-csv"
             ]
         }
     },

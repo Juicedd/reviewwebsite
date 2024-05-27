@@ -16,7 +16,7 @@ def album_list(request):
             Q(artist__icontains=query)
             ).distinct()
         
-    return render(request, 'album_list.html', {'albums': albums})
+    return render(request, 'album_list.html', {'albums': albums, 'query':query})
 
 def album_detail(request, pk):
     """

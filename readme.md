@@ -131,6 +131,7 @@ Don't forget to give the project a star! Thanks again!
 ## Acknowledgments
 
 * My boy Juicy Juiced!!
+* <p align="left"><a href="https://github.com/RamiKrispin/vscode-python">We used the python development environment with Docker and VScode Template by RamiKrispin. It is great!</a></p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

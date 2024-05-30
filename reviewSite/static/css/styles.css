@@ -34,7 +34,7 @@ body {
 }
 
 .card:hover {
-    background-color: var(--primary-dark);
+    background-color: var(--contrast-light);
 }
 
 .card a {

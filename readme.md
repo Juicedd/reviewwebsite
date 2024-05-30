@@ -89,11 +89,7 @@ The following programs are required to have been installed on your computer. See
    git clone https://github.com/Juicedd/reviewwebsite.git
    ```
 2. Open the project in a vscode dev container. 
-3. Once the project is opened in the dev container. Create a python environment with .venv as follows.
-4. ctrl + shift + p
-5. write: Python: Create Environment...
-6. select: Venv
-7. select the global python version
+3. Once the project is opened in the dev container. Happy Coding!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -120,7 +116,7 @@ Don't forget to give the project a star! Thanks again!
 2. After the pitch is approved convert the item to an issue.
 4. Create a branch from the issue.
 5. Commit your Changes
-6. Push to the Branch 
+6. Push to remote
 7. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

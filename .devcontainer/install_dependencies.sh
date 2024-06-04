@@ -5,4 +5,3 @@
     python3-launchpadlib \
     vim \
     && rm -rf /var/lib/apt/lists/*
-

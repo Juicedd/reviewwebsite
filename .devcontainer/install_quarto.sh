@@ -12,9 +12,6 @@ else
   CPU="amd64"
 fi
 
-
-
-
 TEMP_QUARTO="$(mktemp)" && \
     wget -q  -O "$TEMP_QUARTO" https://github.com/quarto-dev/quarto-cli/releases/download/v$QUARTO_VERSION/quarto-${QUARTO_VERSION}-linux-${CPU}.deb && \
     dpkg -i "$TEMP_QUARTO" && \

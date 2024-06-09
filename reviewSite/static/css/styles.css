@@ -33,7 +33,32 @@ body {
     margin: 1rem;
 }
 
+.card:hover {
+    background-color: var(--contrast-light);
+}
+
+.card a {
+    text-decoration: none;
+}
+
 .input-group {
     margin-bottom: 1rem;
     width: 50%;
+}
+
+.form-control {
+    margin-inline: 8px;
+    border-radius: 24px;
+    padding-inline: 1rem;
+}
+
+.btn {
+    background-color: var(--primary-light);
+    margin-inline: 8px;
+    border-radius: 24px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+.btn:hover {
+    background-color: var(--contrast-light);
 }

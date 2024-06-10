@@ -52,6 +52,14 @@ body {
     padding-inline: 1rem;
 }
 
+.dropdown-menu {
+    padding: 1rem;
+}
+
+.login {
+    margin-inline: 0px;
+}
+
 .btn {
     background-color: var(--primary-light);
     margin-inline: 8px;

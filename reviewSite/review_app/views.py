@@ -38,6 +38,19 @@ def album_detail(request, pk):
         
     return render(request, 'album_detail.html', {'album': album, 'review': review})   
 
+
+# @login_required
+def profile(request):
+    """
+    View to display the user profile page.
+    """
+    username = request.user.username
+    reviewed_albums = Review.objects.all().filter(Q(user_name__icontains=username)).distinct()
+    album_ids = reviewed_albums.values_list('album', flat=True).distinct()
+    pending_albums = Album.objects.exclude(id__in=album_ids)
+
+    return render(request, 'profile.html', {'reviewed_albums': reviewed_albums, 'pending_albums': pending_albums})  
+
 def about(request):
     """
     View to display the about page.

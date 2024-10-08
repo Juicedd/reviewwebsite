@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.views.generic import ListView, DetailView
 from .models import Album, Review
 from .forms import AlbumReviewForm
 
+@login_required
 def album_list(request):
     """
     View to display a list of all albums.
@@ -19,6 +21,7 @@ def album_list(request):
         
     return render(request, 'album_list.html', {'albums': albums, 'query':query})
 
+@login_required
 def album_detail(request, pk):
     """
     View to display details of a specific album.

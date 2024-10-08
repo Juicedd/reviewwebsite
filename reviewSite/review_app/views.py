@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from django.views.generic import ListView, DetailView
 from .models import Album, Review
+from .forms import AlbumReviewForm
 
 def album_list(request):
     """
@@ -36,3 +37,17 @@ def contact(request):
     View to display the contact page.
     """
     return render(request, 'contact.html')
+
+def review_album(request):
+    """
+    View to displey the album review page.
+    """
+    if request.method == 'POST':
+        form = AlbumReviewForm(request.POST)
+        if form.is_valid():
+            # Do something with the form data
+            pass
+    else:
+        form = ContactForm()
+
+    return render(request, 'review_album.html')

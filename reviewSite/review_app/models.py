@@ -22,7 +22,7 @@ class Reviewer(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return f'{self.user.username} Profile'
 
 
 class Review(models.Model):
@@ -35,8 +35,8 @@ class Review(models.Model):
     cover_score = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(10)], default=0
     )
-    favorite_track_id = models.CharField(max_length=255, null=True, blank=True)
-    worst_track_id = models.CharField(max_length=255, null=True, blank=True)
+    favorite_track = models.CharField(max_length=255, null=True, blank=True)
+    worst_track = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f"Review by {self.reviewer.name} for Album {self.album.id}"

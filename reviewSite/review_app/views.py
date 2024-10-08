@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.views.generic import ListView, DetailView
-from .models import Album, Review
-from .forms import AlbumReviewForm
+from .models import Album, Review, Reviewer
+from .forms import ReviewForm
 
 @login_required
 def album_list(request):
@@ -41,16 +41,23 @@ def contact(request):
     """
     return render(request, 'contact.html')
 
-def review_album(request):
+@login_required
+def review_album(request, pk):
     """
     View to displey the album review page.
     """
-    if request.method == 'POST':
-        form = AlbumReviewForm(request.POST)
-        if form.is_valid():
-            # Do something with the form data
-            pass
-    else:
-        form = ContactForm()
+    album = get_object_or_404(Album, pk=pk)
+    reviewer = get_object_or_404(Reviewer, user=request.user)
 
-    return render(request, 'review_album.html')
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.album = album
+            review.reviewer = reviewer
+            review.save()
+            return redirect('album_detail', pk=pk)  # Redirect to album detail page after successful review submission
+    else:
+        form = ReviewForm()
+
+    return render(request, 'review_album.html', {'form': form, 'album': album})

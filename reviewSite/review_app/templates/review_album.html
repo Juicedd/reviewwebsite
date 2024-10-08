@@ -1,0 +1,39 @@
+{% extends "base.html"%} 
+{% block content %}
+
+  <div class="container mt-4">
+    <!-- Wrap content in a container for responsiveness -->
+    <div class="row align-items-start gx-5">
+
+      <div class="col">
+        <h1>{{ album.title }}</h1>
+        <p>Artist: {{ album.artist }}</p>
+        <p>Release Date: {{ album.release_date }}</p>
+
+        {% if album.cover_image %}
+          <img src="{{ album.cover_image.url }}" alt="{{ album.title }} Cover Image" />
+        {% else %}
+          <p>No cover image available</p>
+        {% endif %}
+      </div>
+
+      <div class="col">
+        <h2>Reviews</h2>
+        {% if album.review_set.all %}
+          <ul>
+            {% for review in album.review_set.all %}
+            <li>
+              <p>User: {{ review.user_name }}</p>
+              <p>Rating: {{ review.rating }}/5</p>
+              <p>Comment: {{ review.comment }}</p>
+            </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No reviews available for this album</p>
+        {% endif %}
+      </div>
+  </div>
+</div>
+
+{% endblock content %}

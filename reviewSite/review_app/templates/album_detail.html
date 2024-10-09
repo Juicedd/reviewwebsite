@@ -17,21 +17,8 @@
         {% endif %}
       </div>
 
-      <div class="col">
-        <h2>Reviews</h2>
-        {% if album.review_set.all %}
-          <ul>
-            {% for review in album.review_set.all %}
-            <li>
-              <p>User: {{ review.user_name }}</p>
-              <p>Rating: {{ review.rating }}/5</p>
-              <p>Comment: {{ review.comment }}</p>
-            </li>
-            {% endfor %}
-          </ul>
-        {% else %}
-          <p>No reviews available for this album</p>
-        {% endif %}
+      <div class="col text-center align-self-center">
+        <a class="btn btn-primary btn-lg" href="{% url 'review_album' album.pk %}" role="button">Write Review</a>
       </div>
   </div>
 </div>

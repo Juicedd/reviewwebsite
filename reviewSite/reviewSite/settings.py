@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$(rs2nxy*p20#@#(hv^vcp_+z0#5#%nrdg0eay^l9fl91g3)ag
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['juiceddd.pythonanywhere.com']
+ALLOWED_HOSTS = ['juiceddd.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition

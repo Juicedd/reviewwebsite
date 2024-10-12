@@ -9,7 +9,7 @@ ARG ENV_NAME="my_project"
 # Environment variables
 ENV ENV_NAME=$ENV_NAME
 ENV PYTHON_VER=$PYTHON_VER
-ENV QUARTO_VER=$QUARTO_VER`
+ENV QUARTO_VER=$QUARTO_VER
 
 # Copy files
 RUN mkdir requirements

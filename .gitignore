@@ -2,3 +2,4 @@ reviewSite\superuser.txt
 reviewSite\media
 reviewSite\db.sqlite3
 *.pyc
+reviewSite/db.sqlite3

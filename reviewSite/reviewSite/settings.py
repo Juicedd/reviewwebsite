@@ -31,7 +31,6 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-$(rs2nxy*p20#@
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['juiceddd.pythonanywhere.com/', '127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['https://juiceddd.pythonanywhere.com/']
 
 # Application definition
 

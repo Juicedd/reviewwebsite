@@ -124,7 +124,7 @@ USE_TZ = True
 # Define the URL prefix to use when referring to static files.
 STATIC_URL = '/static/'
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Define the directories where Django should look for static files.
 # STATICFILES_DIRS = [

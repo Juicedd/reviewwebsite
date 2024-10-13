@@ -1,6 +1,6 @@
-from django.db import models  # type: ignore
-from django.contrib.auth.models import User  # type: ignore
-from django.core.validators import MinValueValidator, MaxValueValidator  # type: ignore
+from django.db import models # type: ignore
+from django.contrib.auth.models import User # type: ignore
+from django.core.validators import MinValueValidator, MaxValueValidator # type: ignore
 
 
 class Album(models.Model):
@@ -22,17 +22,11 @@ class Reviewer(models.Model):
     )
 
     def __str__(self):
-        return f"{self.user.username} Profile"
+        return f'{self.user.username} Profile'
 
 
 class Review(models.Model):
-    reviewer = models.ForeignKey(
-        Reviewer,
-        on_delete=models.CASCADE,
-        related_name="reviews",
-        null=True,
-        blank=True,
-    )
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE, related_name="reviews", null=True, blank=True )
     album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name="reviews")
     content = models.TextField()
     album_score = models.IntegerField(

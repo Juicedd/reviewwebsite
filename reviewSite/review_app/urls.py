@@ -6,5 +6,6 @@ urlpatterns = [
     path('album/<int:pk>/', views.album_detail, name='album_detail'),
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
-    path('album/<int:pk>/review', views.review_album, name='review_album')
+    path('album/<int:pk>/create_review', views.review_create, name='review_create'),
+    path('review/<int:pk>/update', views.review_update, name='review_update')
 ]

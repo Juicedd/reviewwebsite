@@ -13,3 +13,4 @@ spotipy==2.24.0
 sqlparse==0.5.0
 urllib3==2.2.1
 wheel==0.43.0
+whitenoise

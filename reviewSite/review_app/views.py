@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import UpdateView
 from .models import Album, Review, Reviewer
 from .forms import ReviewForm
 
@@ -27,7 +29,14 @@ def album_detail(request, pk):
     View to display details of a specific album.
     """
     album = get_object_or_404(Album, pk=pk)
-    return render(request, 'album_detail.html', {'album': album})   
+
+    if request.user.is_authenticated:
+        try:
+            review = Review.objects.get(album=album, reviewer__user=request.user)
+        except Review.DoesNotExist:
+            review = None
+        
+    return render(request, 'album_detail.html', {'album': album, 'review': review})   
 
 def about(request):
     """
@@ -42,7 +51,7 @@ def contact(request):
     return render(request, 'contact.html')
 
 @login_required
-def review_album(request, pk):
+def review_create(request, pk):
     """
     View to displey the album review page.
     """
@@ -60,4 +69,21 @@ def review_album(request, pk):
     else:
         form = ReviewForm()
 
-    return render(request, 'review_album.html', {'form': form, 'album': album})
+    return render(request, 'review_create.html', {'form': form, 'album': album})
+
+@login_required
+def review_update(request, pk):
+    """
+    View to displey the album review page.
+    """
+    review = get_object_or_404(Review, pk=pk)
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            review.save()
+            return redirect('album_detail', pk=review.album_id)  # Redirect to album detail page after successful review submission
+    else:
+        form = ReviewForm(instance=review)
+
+    return render(request, 'review_update.html', {'form': form, 'review': review, 'album':review.album})

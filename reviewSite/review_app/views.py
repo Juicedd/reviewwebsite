@@ -38,17 +38,6 @@ def album_detail(request, pk):
         
     return render(request, 'album_detail.html', {'album': album, 'review': review})   
 
-def about(request):
-    """
-    View to display the about page.
-    """
-    return render(request, 'about.html')
-
-def contact(request):
-    """
-    View to display the contact page.
-    """
-    return render(request, 'contact.html')
 
 @login_required
 def review_create(request, pk):
@@ -85,5 +74,31 @@ def review_update(request, pk):
             return redirect('album_detail', pk=review.album_id)  # Redirect to album detail page after successful review submission
     else:
         form = ReviewForm(instance=review)
-
     return render(request, 'review_update.html', {'form': form, 'review': review, 'album':review.album})
+
+@login_required
+def profile(request):
+    """
+    View to display the user profile page.
+    """
+    if not Reviewer.objects.filter(name=request.user.username).exists():
+        pending_albums = Album.objects.all()
+        return render(request, 'profile.html', {'pending_albums': pending_albums})
+    else:
+        reviewer = Reviewer.objects.get(name=request.user.username)
+        reviewed_albums = Review.objects.all().filter(reviewer=reviewer).distinct()
+        album_ids = reviewed_albums.values_list('album', flat=True).distinct()
+        pending_albums = Album.objects.exclude(id__in=album_ids)
+        return render(request, 'profile.html', {'reviewed_albums': reviewed_albums, 'pending_albums': pending_albums})
+
+def about(request):
+    """
+    View to display the about page.
+    """
+    return render(request, 'about.html')
+
+def contact(request):
+    """
+    View to display the contact page.
+    """
+    return render(request, 'contact.html')

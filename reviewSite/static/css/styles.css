@@ -41,6 +41,11 @@ body {
     text-decoration: none;
 }
 
+.card-title,
+.card-subtitle {
+    font-size: small;
+}
+
 .input-group {
     margin-bottom: 1rem;
     width: 50%;

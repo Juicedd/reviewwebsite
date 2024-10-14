@@ -81,12 +81,15 @@ def profile(request):
     """
     View to display the user profile page.
     """
-    reviewer = Reviewer.objects.get(name=request.user.username)
-    reviewed_albums = Review.objects.all().filter(reviewer=reviewer).distinct()
-    album_ids = reviewed_albums.values_list('album', flat=True).distinct()
-    pending_albums = Album.objects.exclude(id__in=album_ids)
-
-    return render(request, 'profile.html', {'reviewed_albums': reviewed_albums, 'pending_albums': pending_albums})
+    if not Reviewer.objects.filter(name=request.user.username).exists():
+        pending_albums = Album.objects.all()
+        return render(request, 'profile.html', {'pending_albums': pending_albums})
+    else:
+        reviewer = Reviewer.objects.get(name=request.user.username)
+        reviewed_albums = Review.objects.all().filter(reviewer=reviewer).distinct()
+        album_ids = reviewed_albums.values_list('album', flat=True).distinct()
+        pending_albums = Album.objects.exclude(id__in=album_ids)
+        return render(request, 'profile.html', {'reviewed_albums': reviewed_albums, 'pending_albums': pending_albums})
 
 def about(request):
     """

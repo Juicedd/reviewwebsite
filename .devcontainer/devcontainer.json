@@ -4,7 +4,7 @@
         "dockerfile": "Dockerfile",
         "args": {
             "ENV_NAME": "${localEnv:PROJECT_A_NAME:reviewSite}",
-            "PYTHON_VER": "${localEnv:PYTHON_VER:3.12}"
+            "PYTHON_VER": "${localEnv:PYTHON_VER:3.10}"
         }
     },
     "customizations": {

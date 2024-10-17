@@ -1,9 +1,9 @@
 # Arguments
-ARG PYTHON_VER="3.13"
+ARG PYTHON_VER="3.10"
 FROM python:$PYTHON_VER
 
 # Arguments
-ARG PYTHON_VER="3.13"
+ARG PYTHON_VER="3.10"
 ARG QUARTO_VER="1.4.554"
 ARG ENV_NAME="my_project"
 # Environment variables

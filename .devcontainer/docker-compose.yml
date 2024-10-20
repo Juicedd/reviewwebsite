@@ -25,7 +25,7 @@ services:
     image: mysql:latest
     restart: unless-stopped
     volumes:
-      - mysql-data:/var/lib/mysql/data
+      - mysql-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: supersecret
       MYSQL_DATABASE: reviewSite

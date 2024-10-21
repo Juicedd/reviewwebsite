@@ -3,11 +3,8 @@ services:
     build:
       context: ..
       dockerfile: .devcontainer/Dockerfile
-    environment:
-      MYSQL_ROOT_PASSWORD: supersecret
-      MYSQL_DATABASE: reviewSite
-      MYSQL_USER: mysql
-      MYSQL_PASSWORD: mysql
+    env_file:
+      - .env
 
     volumes:
       - ../..:/workspaces:cached
@@ -26,11 +23,8 @@ services:
     restart: unless-stopped
     volumes:
       - mysql-data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: supersecret
-      MYSQL_DATABASE: reviewSite
-      MYSQL_USER: mysql
-      MYSQL_PASSWORD: mysql
+    env_file:
+      - .env
 
     # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)

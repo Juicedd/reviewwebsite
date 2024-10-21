@@ -1,7 +1,12 @@
-reviewSite\superuser.txt
-reviewSite\media
-reviewSite\db.sqlite3
+# Ignore media files
+media/
+
+# Ignore cache files
+__pycache__/
 *.pyc
-reviewSite/db.sqlite3
-reviewSite/.env
+
+# Ignore vscode settings
 .vscode
+
+# Ignore environment variables
+.env

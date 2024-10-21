@@ -12,6 +12,7 @@ dependencies:
       - django==5.1
       - django-crispy-forms==2.1
       - idna==3.7
+      - mysqlclient==2.2.4
       - pillow==10.3.0
       - python-dotenv==1.0.1
       - redis==5.0.4

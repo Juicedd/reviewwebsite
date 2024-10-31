@@ -4,7 +4,11 @@ from django.core.management.base import BaseCommand
 from review_app.models import Album
 
 class Command(BaseCommand):
-    help = 'Imports albums from a CSV file'
+    help = (
+        'Imports albums from a CSV file with the columns',
+        'title,artist,release_date,cover_art',
+        'the record,boygenius,2023-03-31,cover_art/the_record_boygenius.jpg'
+    )
 
     # require argument
     def add_arguments(self, parser):

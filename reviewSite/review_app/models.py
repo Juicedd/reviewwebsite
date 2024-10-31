@@ -18,7 +18,7 @@ class Track(models.Model):
     title = models.CharField(max_length=50)
     track_number = models.IntegerField(MinValueValidator(1))
     def __str__(self):
-        return f"{self.title} by {self.album.artist}}"
+        return f"{self.title} by {self.album.artist}"
 
 
 class Reviewer(models.Model):

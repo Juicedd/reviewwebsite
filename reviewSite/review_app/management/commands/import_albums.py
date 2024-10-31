@@ -21,7 +21,7 @@ class Command(BaseCommand):
             reader = csv.reader(file)
             next(reader)  # Skip header row if exists
             for row in reader:
-                title, artist, release_date_str = row
+                title, artist, release_date_str, cover_url = row
                 release_date = datetime.strptime(release_date_str, '%Y-%M-%d').date()
-                Album.objects.create(title=title, artist=artist, release_date=release_date)
+                Album.objects.create(title=title, artist=artist, release_date=release_date, cover_image=cover_url)
         self.stdout.write(self.style.SUCCESS('Successfully imported albums from CSV'))

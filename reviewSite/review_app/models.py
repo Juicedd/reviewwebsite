@@ -13,6 +13,14 @@ class Album(models.Model):
         return f"{self.artist} - {self.title} - Album {self.id}"
 
 
+class Track(models.Model):
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
+    track_number = models.IntegerField(MinValueValidator(1))
+    def __str__(self):
+        return f"{self.title} by {self.album.artist}}"
+
+
 class Reviewer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)

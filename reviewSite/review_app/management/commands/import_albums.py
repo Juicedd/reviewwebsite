@@ -10,7 +10,6 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('csv_file_path', type=str, help='Path to the CSV file')
 
-
     # Call the processing function with the added argument
     def handle(self, *args, **kwargs):
         csv_file_path = kwargs['csv_file_path']

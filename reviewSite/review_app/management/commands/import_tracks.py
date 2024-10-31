@@ -4,7 +4,11 @@ from review_app.models import Album, Track
 from django.core.exceptions import ObjectDoesNotExist
 
 class Command(BaseCommand):
-    help = 'Imports tracks from a CSV file'
+    help = (
+        'Imports tracks from a CSV file with the columns',
+        'album_title, track_title, track_number',
+        'the record,Without You Without Them,1'
+    )
 
     def add_arguments(self, parser):
         parser.add_argument('csv_file_path', type=str, help='Path to the CSV file')
@@ -21,14 +25,19 @@ class Command(BaseCommand):
                 album_title, track_title, track_number = row
                 try:
                     album = Album.objects.get(title=album_title)
-                    Track.objects.create(
+                    track, created = Track.objects.get_or_create(
                         album=album,
                         title=track_title,
                         track_number=int(track_number)
                     )
-                    self.stdout.write(self.style.SUCCESS(
-                        f'Successfully added track: {track_title} to album: {album_title}'
-                    ))
+                    if created:
+                        self.stdout.write(self.style.SUCCESS(
+                            f'Successfully added track: {track_title} to album: {album_title}'
+                        ))
+                    else:
+                        self.stdout.write(self.style.WARNING(
+                            f'Track already exists: {track_title} in album: {album_title}'
+                        ))
                 except ObjectDoesNotExist:
                     self.stdout.write(self.style.ERROR(
                         f'Album not found: {album_title}'

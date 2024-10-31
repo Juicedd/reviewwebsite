@@ -15,7 +15,7 @@ class Album(models.Model):
 
 class Track(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=100)
     track_number = models.IntegerField(MinValueValidator(1))
     def __str__(self):
         return f"{self.title} by {self.album.artist}"

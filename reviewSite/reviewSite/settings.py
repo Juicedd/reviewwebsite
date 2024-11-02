@@ -87,8 +87,7 @@ DATABASES = {
         'NAME': 'juiceddd$default',
         'USER': 'juiceddd',
         'PASSWORD': 'frannie-uncommon-buts',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'HOST': 'juiceddd.mysql.pythonanywhere-services.com',
     }
 }
 

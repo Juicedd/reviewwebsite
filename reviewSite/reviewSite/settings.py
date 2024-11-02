@@ -87,7 +87,6 @@ DATABASES = {
         'USER': os.environ.get('MYSQL_USER', 'juiceddd'),
         'PASSWORD': os.environ.get('MYSQL_PASSWORD', 'frannie-uncommon-buts'),
         'HOST': os.environ.get('MYSQL_HOST', 'juiceddd.mysql.pythonanywhere-services.com'),
-        'PORT': os.environ.get('MYSQL_PORT', '5432'),
     }
 }
 

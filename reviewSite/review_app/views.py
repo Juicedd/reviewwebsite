@@ -7,6 +7,7 @@ from django.views.generic.edit import UpdateView
 from .models import Album, Review, Reviewer
 from .forms import ReviewForm
 
+
 @login_required
 def album_list(request):
     """
@@ -19,9 +20,10 @@ def album_list(request):
         albums = albums.filter(
             Q(title__icontains=query) |
             Q(artist__icontains=query)
-            ).distinct()
-        
-    return render(request, 'album_list.html', {'albums': albums, 'query':query})
+        ).distinct()
+
+    return render(request, 'album_list.html', {'albums': albums, 'query': query})
+
 
 @login_required
 def album_detail(request, pk):
@@ -32,11 +34,12 @@ def album_detail(request, pk):
 
     if request.user.is_authenticated:
         try:
-            review = Review.objects.get(album=album, reviewer__user=request.user)
+            review = Review.objects.get(
+                album=album, reviewer__user=request.user)
         except Review.DoesNotExist:
             review = None
-        
-    return render(request, 'album_detail.html', {'album': album, 'review': review})   
+
+    return render(request, 'album_detail.html', {'album': album, 'review': review})
 
 
 @login_required
@@ -54,11 +57,13 @@ def review_create(request, pk):
             review.album = album
             review.reviewer = reviewer
             review.save()
-            return redirect('album_detail', pk=pk)  # Redirect to album detail page after successful review submission
+            # Redirect to album detail page after successful review submission
+            return redirect('album_detail', pk=pk)
     else:
         form = ReviewForm()
 
-    return render(request, 'review_create.html', {'form': form, 'album': album})
+    return render(request, 'review_album.html', {'form': form, 'album': album})
+
 
 @login_required
 def review_update(request, pk):
@@ -71,10 +76,13 @@ def review_update(request, pk):
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
             review.save()
-            return redirect('album_detail', pk=review.album_id)  # Redirect to album detail page after successful review submission
+            # Redirect to album detail page after successful review submission
+            return redirect('album_detail', pk=review.album_id)
     else:
         form = ReviewForm(instance=review)
-    return render(request, 'review_update.html', {'form': form, 'review': review, 'album':review.album})
+
+    return render(request, 'review_album.html', {'form': form, 'review': review, 'album': review.album})
+
 
 @login_required
 def profile(request):
@@ -89,13 +97,16 @@ def profile(request):
         reviewed_albums = Review.objects.all().filter(reviewer=reviewer).distinct()
         album_ids = reviewed_albums.values_list('album', flat=True).distinct()
         pending_albums = Album.objects.exclude(id__in=album_ids)
-        return render(request, 'profile.html', {'reviewed_albums': reviewed_albums, 'pending_albums': pending_albums})
+
+    return render(request, 'profile.html', {'reviewed_albums': reviewed_albums, 'pending_albums': pending_albums})
+
 
 def about(request):
     """
     View to display the about page.
     """
     return render(request, 'about.html')
+
 
 def contact(request):
     """

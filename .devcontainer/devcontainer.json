@@ -26,5 +26,6 @@
             "qwtel.sqlite-viewer"
           ]
         }
-    }
+    },
+    "forwardPorts": [8000, 3306]
 }

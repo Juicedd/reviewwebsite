@@ -34,8 +34,8 @@ class Reviewer(models.Model):
 
 
 class Review(models.Model):
-    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE, related_name="reviews", null=True, blank=True )
-    album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name="reviews")
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE, related_name="review_reviewer", null=True, blank=True )
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name="reviews_album")
     content = models.TextField()
     album_score = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(10)], default=0
@@ -43,7 +43,7 @@ class Review(models.Model):
     cover_score = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(10)], default=0
     )
-    favorite_track = models.CharField(max_length=255, null=True, blank=True)
+    favorite_track = models.ForeignKey(Track, on_delete=models.SET_NULL)
     worst_track = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):

@@ -73,17 +73,17 @@ def review_update(request, pk):
     View to displey the album review page.
     """
     review = get_object_or_404(Review, pk=pk)
+    tracks = Track.objects.filter(album=review.album)
 
     if request.method == 'POST':
-        form = ReviewForm(request.POST, instance=review)
+        form = ReviewForm(request.POST, instance=review, album=review.album)
         if form.is_valid():
             review.save()
             # Redirect to album detail page after successful review submission
             return redirect('album_detail', pk=review.album_id)
     else:
-        form = ReviewForm(instance=review)
-
-    return render(request, 'review_album.html', {'form': form, 'review': review, 'album': review.album})
+        form = ReviewForm(instance=review, album=review.album)
+    return render(request, 'review_album.html', {'form': form, 'review': review, 'album': review.album, 'tracks': tracks})
 
 
 @login_required

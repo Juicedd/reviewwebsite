@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView
-from .models import Album, Review, Reviewer
+from .models import Album, Review, Reviewer, Track
 from .forms import ReviewForm
 
 
@@ -31,6 +31,7 @@ def album_detail(request, pk):
     View to display details of a specific album.
     """
     album = get_object_or_404(Album, pk=pk)
+    tracks = Track.objects.filter(album=album)
 
     if request.user.is_authenticated:
         try:
@@ -39,7 +40,7 @@ def album_detail(request, pk):
         except Review.DoesNotExist:
             review = None
 
-    return render(request, 'album_detail.html', {'album': album, 'review': review})
+    return render(request, 'album_detail.html', {'album': album, 'review': review, 'tracks': tracks})
 
 
 @login_required
@@ -49,9 +50,10 @@ def review_create(request, pk):
     """
     album = get_object_or_404(Album, pk=pk)
     reviewer = get_object_or_404(Reviewer, user=request.user)
+    tracks = Track.objects.filter(album=album)
 
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
+        form = ReviewForm(request.POST, album=album)
         if form.is_valid():
             review = form.save(commit=False)
             review.album = album
@@ -60,9 +62,9 @@ def review_create(request, pk):
             # Redirect to album detail page after successful review submission
             return redirect('album_detail', pk=pk)
     else:
-        form = ReviewForm()
+        form = ReviewForm(album=album)
 
-    return render(request, 'review_album.html', {'form': form, 'album': album})
+    return render(request, 'review_album.html', {'form': form, 'album': album, 'tracks': tracks})
 
 
 @login_required

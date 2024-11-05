@@ -16,7 +16,7 @@ class Album(models.Model):
 class Track(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    track_number = models.IntegerField(MinValueValidator(1))
+    track_number = models.IntegerField(validators=[MinValueValidator(1)])
     def __str__(self):
         return f"{self.title} by {self.album.artist}"
 
@@ -59,14 +59,14 @@ class Review(models.Model):
     favorite_track = models.ForeignKey(
         Track,
         on_delete=models.SET_NULL,
-        related_name='favorite_review',
+        related_name='review_favtrack',
         null=True,
         blank=True
     )
     worst_track = models.ForeignKey(
         Track,
         on_delete=models.SET_NULL,
-        related_name='worst_review',
+        related_name='review_worsttrack',
         null=True,
         blank=True
     )

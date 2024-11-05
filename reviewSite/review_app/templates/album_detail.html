@@ -32,7 +32,7 @@
             <div class="row mt-auto">
                 {% if review %}
                     <h2>Your Review</h2>
-                    <p>Content: {{ review.content }}</p>
+                    <p>{{ review.content|linebreaksbr }}</p>
                     <p>Album Score: {{ review.album_score }}</p>
                     <p>Cover Score: {{ review.cover_score }}</p>
                     <p>Favorite Track: {{ review.favorite_track }}</p>

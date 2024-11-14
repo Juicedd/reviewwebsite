@@ -80,15 +80,13 @@ WSGI_APPLICATION = 'reviewSite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'reviewSite',
-        'USER': 'mysql',
-        'PASSWORD': 'mysql',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'NAME': os.environ.get('MYSQL_DATABASE', 'juiceddd$default'),
+        'USER': os.environ.get('MYSQL_USER', 'juiceddd'),
+        'PASSWORD': os.environ.get('MYSQL_PASSWORD', 'frannie-uncommon-buts'),
+        'HOST': os.environ.get('MYSQL_HOST', 'juiceddd.mysql.pythonanywhere-services.com'),
     }
 }
 

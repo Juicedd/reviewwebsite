@@ -76,3 +76,34 @@ class Review(models.Model):
 
     class Meta:
         unique_together = ["reviewer", "album"]
+
+
+class Edition(models.Model):
+    year = models.IntegerField()
+    album = models.ForeignKey(
+        Album, 
+        on_delete=models.CASCADE, 
+        related_name="editions"
+    )
+
+    class Meta: 
+        unique_together = ["year", "album"]
+        ordering = ["-year", 'album']
+
+    def __str__(self):
+        return f"Edition {self.year}, where albums are reviewed from {self.year - 1}"
+
+class AlbumLink(models.Model):
+    LINK_TYPES = (
+        ('youtube', 'YouTube'),
+        ('spotify', 'Spotify'),
+        ('tidal', 'Tidal'),
+        ('apple_music', 'Apple Music')
+    )
+
+    album = models.ForeignKey('Album', on_delete=models.CASCADE, related_name='links')
+    url = models.URLField()
+    link_type = models.CharField(max_length=20, choices=LINK_TYPES)
+
+    class Meta:
+        unique_together = ['album', 'link_type', 'url']  # Prevent exact duplicates

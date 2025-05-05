@@ -13,7 +13,7 @@ def album_list(request):
     """
     View to display a list of all albums.
     """
-    albums = Album.objects.all()
+    albums = Album.objects.filter(editions__year=2025)
     query = request.GET.get('album_search')
 
     if query != '' and query is not None:

@@ -1,0 +1,11 @@
+:root {
+    /* Adobe Theme Colours */
+    --primary: #D9A577;
+    --primary-light:#F27329;
+    --primary-dark:#A63B14;
+    --contrast-light: #F238C1;
+    --contrast-dark: #070A0D;
+    
+    --primary-font: 'Playfair Display', serif;
+    --secondary-font: 'Lato', sans-serif;
+}

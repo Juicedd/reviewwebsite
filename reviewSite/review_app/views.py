@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView
-from .models import Album, Review, Reviewer, Track
+from .models import Album, Review, Reviewer, Track, AlbumLink
 from .forms import ReviewForm
 
 
@@ -32,6 +32,7 @@ def album_detail(request, pk):
     """
     album = get_object_or_404(Album, pk=pk)
     tracks = Track.objects.filter(album=album)
+    links = AlbumLink.objects.filter(album=album)
 
     if request.user.is_authenticated:
         try:
@@ -40,7 +41,7 @@ def album_detail(request, pk):
         except Review.DoesNotExist:
             review = None
 
-    return render(request, 'album_detail.html', {'album': album, 'review': review, 'tracks': tracks})
+    return render(request, 'album_detail.html', {'album': album, 'review': review, 'tracks': tracks, 'links':links})
 
 
 @login_required
@@ -87,20 +88,19 @@ def review_update(request, pk):
 
 
 @login_required
-def profile(request):
+def pending_reviews(request, user_pk):
     """
-    View to display the user profile page.
+    View to display pending reviews for a user.
     """
-    if not Reviewer.objects.filter(name=request.user.username).exists():
-        pending_albums = Album.objects.all()
-        return render(request, 'profile.html', {'pending_albums': pending_albums})
-    else:
-        reviewer = Reviewer.objects.get(name=request.user.username)
-        reviewed_albums = Review.objects.all().filter(reviewer=reviewer).distinct()
-        album_ids = reviewed_albums.values_list('album', flat=True).distinct()
-        pending_albums = Album.objects.exclude(id__in=album_ids)
+    reviewer = get_object_or_404(Reviewer,user_id=user_pk)    
+    albums = Album.objects.filter(editions__year=2025)
+    user_reviews = Review.objects.filter(reviewer=reviewer)
 
-    return render(request, 'profile.html', {'reviewed_albums': reviewed_albums, 'pending_albums': pending_albums})
+    # filter for pending albums
+    user_review_set = user_reviews.values_list('album_id', flat=True)
+    pending_albums = albums.exclude(id__in=user_review_set)
+
+    return render(request, 'pending_reviews.html', {'pending_albums': pending_albums, 'user_reviews':user_reviews})
 
 
 def about(request):

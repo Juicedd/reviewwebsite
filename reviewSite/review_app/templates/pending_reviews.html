@@ -6,19 +6,19 @@
             <div class="col">
                 <h2>Reviewed</h2>
                 <div class="d-flex flex-row flex-wrap"> 
-                    {% for review in reviewed_albums %}
-                        <div class="card w-28 m-1">
-                            <a href="{% url 'album_detail' pk=review.album.pk %}" class="text-dark row g-0">
+                    {% for user_review in user_reviews %}
+                        <div class="card w-40 m-1">
+                            <a href="{% url 'album_detail' pk=user_review.album.pk %}" class="text-dark row g-0">
                                 <div class="col-4">
-                                    <img class="card-img" src={{ review.album.cover_image.url }} alt="Image not found">
+                                    <img class="card-img" src={{ user_review.album.cover_image.url }} alt="Image not found">
                                 </div>
                                 <div class="col-6">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{ review.album.title }}</h5>
-                                        <h6 class="card-subtitle text-muted">{{ review.album.artist }}</h6>
+                                        <h5 class="card-title">{{ user_review.album.title }}</h5>
+                                        <h6 class="card-subtitle text-muted">{{ user_review.album.artist }}</h6>
                                     </div>
                                 </div>
-                                <div class="col-1">
+                                <div class="col-2">
                                     <div class="card-body">
                                         <h6 class="card-subtitle">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-note" viewBox="0 0 16 16">
@@ -26,13 +26,13 @@
                                                 <path fill-rule="evenodd" d="M9 3v10H8V3z"/>
                                                 <path d="M8 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 13 2.22V4L8 5z"/>
                                               </svg>
-                                            {{ review.album_score }}
+                                            {{ user_review.album_score }}
                                         </h6>
                                         <h6 class="card-subtitle">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brush-fill" viewBox="0 0 16 16">
                                                 <path d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.1 6.1 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.1 8.1 0 0 1-3.078.132 4 4 0 0 1-.562-.135 1.4 1.4 0 0 1-.466-.247.7.7 0 0 1-.204-.288.62.62 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.201-.925 1.746-.896q.19.012.348.048c.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.176-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04"/>
                                               </svg>
-                                            {{ review.cover_score }}
+                                            {{ user_review.cover_score }}
                                         </h6>
                                     </div>
                                 </div>

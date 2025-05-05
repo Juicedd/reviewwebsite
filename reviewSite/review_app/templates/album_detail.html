@@ -1,37 +1,56 @@
-{% extends "base.html"%} 
+{% extends "base.html" %}
 {% block content %}
 
-  <div class="container mt-4">
+<div class="container mt-4">
     <!-- Wrap content in a container for responsiveness -->
-    <div class="row align-items-start gx-5">
-
-      <div class="col">
-        <h1>{{ album.title }}</h1>
-        <p>Artist: {{ album.artist }}</p>
-        <p>Release Date: {{ album.release_date }}</p>
-
-        {% if album.cover_image %}
-          <img src="{{ album.cover_image.url }}" alt="{{ album.title }} Cover Image" />
-        {% else %}
-          <p>No cover image available</p>
-        {% endif %}
-      </div>
-
-      <div class="col text-center align-self-center">
-        {% if review %}
-          <h2>Your Review</h2>
-          <p>Content: {{ review.content }}</p>
-          <p>Album Score: {{ review.album_score }}</p>
-          <p>Cover Score: {{ review.cover_score }}</p>
-          <p>Favorite Track: {{ review.favorite_track }}</p>
-          <p>Worst Track: {{ review.worst_track }}</p>
-          <a class="btn btn-primary btn-lg" href="{% url 'review_update' review.pk %}" role="button">Edit Review</a>
-        {% else %}
-          <p>Hey! You haven't reviewed the album yet! Get those ears listenin' and type away. </p>
-          <a class="btn btn-primary btn-lg" href="{% url 'review_create' album.pk %}" role="button">Write Review</a>
-        {% endif %}
-      </div>
-  </div>
+    <div class="row align-items-start gx-5 d-flex align-items-stretch">
+        <div class="col-md-6 cover-frame text-center d-flex flex-column">
+            {% if album.cover_image %}
+                <img src="{{ album.cover_image.url }}" class="img-fluid" alt="{{ album.title }} Cover Image" />
+            {% else %}
+                <p>No cover image available</p>
+            {% endif %}
+            <h1 class="info-text">{{ album.title }}</h1>
+            <h5>released by</h5>
+            <h2 class="info-text">{{ album.artist }}</h2>
+            <h5>on</h5>
+            <h3 class="info-text">{{ album.release_date|date:"d-m-Y" }}</h3>
+            {% if links %}
+                {% for link in links %}
+                    <a href="{{ link.url }}" target="_blank" class="btn btn-primary btn-lg mt-4 mb-4">
+                        <i class="fas fa-link"></i> Listen on {{ link.link_type }}
+                    </a>
+                {% endfor %}
+            {% endif %}
+            <div class="mt-auto"></div> <!-- Spacer to push content to the top -->
+        </div>
+        <div class="col-md-6 tracks-frame text-center align-self-center d-flex flex-column">
+            <div class="row flex-grow-1">
+                <h2>Tracks</h2>
+                <table class="track-table">
+                    {% for track in tracks %}
+                    <tr class="{% cycle 'odd' 'even' %}">
+                        <td class="left-align">{{ track.track_number }}</td>
+                        <td class="right-align">{{ track.title }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="row mt-auto">
+                {% if review %}
+                    <h2>Your Review</h2>
+                    <p>{{ review.content|linebreaksbr }}</p>
+                    <p>Album Score: {{ review.album_score }}</p>
+                    <p>Cover Score: {{ review.cover_score }}</p>
+                    <p>Favorite Track: {{ review.favorite_track }}</p>
+                    <p>Worst Track: {{ review.worst_track }}</p>
+                    <a class="btn btn-primary btn-lg mt-4 mb-4" href="{% url 'review_update' review.pk %}" role="button">Edit Review</a>
+                {% else %}
+                    <a class="btn btn-primary btn-lg mt-4 mb-4" href="{% url 'review_create' album.pk %}" role="button">Start writing your review!</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}

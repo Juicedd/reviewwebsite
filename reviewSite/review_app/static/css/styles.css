@@ -5,6 +5,19 @@
     --primary-dark:#A63B14;
     --contrast-light: #F238C1;
     --contrast-dark: #070A0D;
+    
+    --primary-font: 'Playfair Display', serif;
+    --secondary-font: 'Lato', sans-serif;
+}
+
+/* Apply the primary font to headers */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--primary-font);
+}
+
+/* Apply the secondary font to regular text */
+body, p, span, div {
+    font-family: var(--secondary-font);
 }
 
 .navbar {
@@ -74,4 +87,60 @@ body {
 
 .btn:hover {
     background-color: var(--contrast-light);
+}
+
+/* Create frame for cover art */
+.cover-frame {
+    background-color: var(--primary-dark);
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Tracks frame properties */
+.tracks-frame {
+    background-color: var(--primary-light);
+}
+
+/* Align text left */
+.left-align {
+    text-align: left;
+}
+
+/* Align text right */ 
+.right-align {
+    text-align: right;
+}
+
+/* Album info table properties */
+table.info-table {
+    width: 50%; /* Make the table take up half the width of the container */
+    margin: 0 auto; /* Center the table within the container */
+    border-collapse: collapse;
+}
+
+/* Album info table properties */
+table.track-table {
+    width: 100%; /* Make the table take up half the width of the container */
+    margin: 0 auto; /* Center the table within the container */
+    border-collapse: collapse;
+}
+
+.info-text {
+    font-weight: bold;
+    color: var(--primary-light)
+}
+
+/* Alternate row colors */
+tr.odd {
+    background-color: var(--primary-dark);
+    font-weight: bold;
+}
+
+tr.even {
+    background-color: var(--primary); /* White for even rows */
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: var(--contrast-light); /* Light blue for hover effect */
 }

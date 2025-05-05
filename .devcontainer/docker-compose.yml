@@ -4,7 +4,7 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
     env_file:
-      - .env
+      - ../reviewSite/.env
 
     volumes:
       - ../..:/workspaces:cached
@@ -26,7 +26,7 @@ services:
     ports:
       - 3306:3306
     env_file:
-      - .env
+      - ../reviewSite/.env
 
     # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)

@@ -94,7 +94,7 @@ def pending_reviews(request, user_pk):
     """
     reviewer = get_object_or_404(Reviewer,user_id=user_pk)    
     albums = Album.objects.filter(editions__year=2025)
-    user_reviews = Review.objects.filter(reviewer=reviewer)
+    user_reviews = Review.objects.filter(reviewer=reviewer, album__editions__year=2025)
 
     # filter for pending albums
     user_review_set = user_reviews.values_list('album_id', flat=True)

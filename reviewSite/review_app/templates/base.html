@@ -5,6 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -16,47 +17,78 @@
       type="text/css"
       href="{% static 'css/styles.css' %}"
     />
-    <title>Album Top 23 of 23</title>
+    <title>Album Top 30 of 2025</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   </head>
 
   <body>
-    <header>
-      <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-          <div class="navbar-nav">
-            <a class="navbar-brand" href="#">Hello {{ user.username }}!</a>
-          </div>
-          <div class="navbar-nav">
-            <a class="nav-item nav-link" href="{% url 'album_list' %}"
-              >Album List</a
-            >
-            <a class="nav-item nav-link" href="{% url 'contact' %}">Contact</a>
-            <a class="nav-item nav-link" href="{% url 'about' %}">About</a>
-            {% if user.is_authenticated %}
-            <a class="nav-item nav-link" href="{% url 'pending_reviews' user_pk=user.id %}">Pending Reviews</a>
-            <form action="{% url 'logout' %}" method="POST">
-              {% csrf_token %}
-              <button class="nav-item nav-link" type="submit">Logout</button>
-            </form>
-            {% endif %}
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 d-md-block sidebar-column" id="sidebarContainer">
+        <div class="sidebar" id="sidebarMenu">
+          <div class="sidebar-inner">
+            <!-- Top header with logo and toggle button -->
+            <div class="sidebar-heading d-flex justify-content-between align-items-center">
+              <h1>Melodyze</h1>
+              <!-- Collapse button -->
+              <button class="btn btn-link sidebar-toggle" type="button">
+                <i class="bi bi-arrows-collapse-vertical"></i>
+              </button>
+            </div>
+            
+            <div class="sidebar-nav-wrapper">
+              <!-- Main navigation links - wrap text in span tags -->
+              <div class="list-group main-nav">
+                <a href="{% url 'album_list'  %}" class="list-group-item {% if request.path == '/' %}active{% endif %}">
+                  <i class="bi bi-house-door me-2"></i> <span>Home</span>
+                </a>
+                <a href="{% url 'my_reviews' user_pk=user.id %}" class="list-group-item {% if '/my_reviews' in request.path %}active{% endif %}">
+                  <i class="bi bi-chat-right-heart me-2"></i> <span>My Reviews</span>
+                </a>
+                <a href="{% url 'dashboard' %}" class="list-group-item {% if request.path == '/dashboard/' %}active{% endif %}">
+                  <i class="bi bi-bar-chart me-2"></i> <span>Dashboard</span>
+                </a>
+                <a href="{% url 'archive'  %}" class="list-group-item {% if request.path == '/archive/' %}active{% endif %}">
+                  <i class="bi bi-archive me-2"></i> <span>Archive</span>
+                </a>
+              </div>
+
+              <!-- Logout link - wrap text in span -->
+              <div class="logout-container">
+                <a href="{% url 'logout' %}" class="list-group-item">
+                  <i class="bi bi-box-arrow-right me-2"></i> <span>Logout</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-      </nav>
-    </header>
-
-    <main>{% block content %} {% endblock %}</main>
-
-    <footer>
-      <!-- Add your footer content here -->
-      <div class="container mt-4">
-        <p>&copy; {{ year }} All Rights Reserved</p>
       </div>
-    </footer>
+      <main class="col-md-9 col-lg-10 ms-auto content-wrapper">{% block content %} {% endblock %}</main>
+    </div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Simple sidebar toggle logic
+      document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.querySelector('.sidebar-toggle');
+        const sidebarContainer = document.getElementById('sidebarContainer');
+        const sidebar = document.getElementById('sidebarMenu');
+        const content = document.querySelector('.content-wrapper');
+        
+        toggleBtn.addEventListener('click', function() {
+          sidebarContainer.classList.toggle('collapsed');
+          
+          // Change icon
+          const icon = this.querySelector('i');
+          if (sidebarContainer.classList.contains('collapsed')) {
+            icon.classList.remove('bi-arrows-collapse-vertical');
+            icon.classList.add('bi-arrows-expand-vertical');
+          } else {
+            icon.classList.remove('bi-arrows-expand-vertical');
+            icon.classList.add('bi-arrows-collapse-vertical');
+          }
+        });
+      });
+    </script>
   </body>
 </html>

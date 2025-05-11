@@ -8,5 +8,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('album/<int:pk>/create-review', views.review_create, name='review_create'),
     path('review/<int:pk>/update-review', views.review_update, name='review_update'),
-    path('user/<int:user_pk>/pending_reviews', views.pending_reviews, name='pending_reviews')
+    path('user/<int:user_pk>/my_reviews', views.my_reviews, name='my_reviews'),
+    path('dashboard/',views.placeholder, {'page_name':'Dashboard'}, name='dashboard'),
+    path('archive/',views.placeholder, {'page_name':'Dashboard'}, name='archive')
 ]

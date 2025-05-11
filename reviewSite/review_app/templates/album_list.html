@@ -25,9 +25,9 @@
                     <div class="card">
                         <a href="{% url 'album_detail' pk=album.pk %}" class="text-dark">
                             <img class="card-img-top" src={{ album.cover_image.url }} alt="Image not found">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ album.title }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ album.artist }}</h6>
+                            <div class="card-body text-center">
+                                <h3 class="card-title">{{ album.title }}</h5>
+                                <h4 class="card-subtitle mb-2 text-muted">{{ album.artist }}</h6>
                             </div>
                         </a>
                     </div>

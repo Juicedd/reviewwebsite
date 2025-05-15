@@ -3,43 +3,332 @@
 {% block content %}
 
 <div class="container mt-4">
-  <!-- Wrap content in a container for responsiveness -->
-  <div class="row align-items-start gx-5 d-flex align-items-stretch">
-      <div class="col-md-6 cover-frame text-center d-flex flex-column">
-          {% if album.cover_image %}
-              <img src="{{ album.cover_image.url }}" class="img-fluid" alt="{{ album.title }} Cover Image" />
-          {% else %}
-              <p>No cover image available</p>
-          {% endif %}
-          <h1 class="info-text">{{ album.title }}</h1>
-          <h5>released by</h5>
-          <h2 class="info-text">{{ album.artist }}</h2>
-          <h5>on</h5>
-          <h3 class="info-text">{{ album.release_date|date:"d-m-Y" }}</h3>
-          <div class="mt-auto"></div> <!-- Spacer to push content to the top -->
-      </div>
-      <div class="col-md-6 tracks-frame text-center align-self-center d-flex flex-column">
-          <div class="row flex-grow-1">
-              <h2>Tracks</h2>
-              <table class="track-table">
-                  {% for track in tracks %}
-                  <tr class="{% cycle 'odd' 'even' %}">
-                      <td class="left-align">{{ track.track_number }}</td>
-                      <td class="right-align">{{ track.title }}</td>
-                  </tr>
-                  {% endfor %}
-              </table>
-          </div>
-          <div class="row mt-auto">
-              <h1>Review the album</h1>
-              <form method="POST">
-                  {% csrf_token %}
-                  {{ form|crispy }}
-                  <button type="submit" class="btn btn-primary align-self-center">Submit Review</button>
-              </form>
-          </div>
-      </div>
-  </div>
+    <!-- Page Header -->
+    <div class="mb-4">
+        <h1 class="text-center mb-3" style="color: var(--primary-dark); font-weight: 700; font-size: 2.5rem;">Write Your Review</h1>
+        <div class="d-flex justify-content-center">
+            <div style="height: 4px; width: 120px; background-color: var(--primary); border-radius: 2px;"></div>
+        </div>
+    </div>
+    
+    <!-- Album Details Container -->
+    <div class="album-detail-container">
+        <!-- Album Cover and Info Section -->
+        <div class="album-cover-section">
+            <div class="cover-container">
+                {% if album.cover_image %}
+                    <img src="{{ album.cover_image.url }}" class="album-cover-img" alt="{{ album.title }} Cover Image" />
+                {% else %}
+                    <div class="no-cover">
+                        <i class="bi bi-disc"></i>
+                        <p>No cover image available</p>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="album-info">
+                <h1 class="album-title">{{ album.title }}</h1>
+                <div class="album-artist">
+                    <span class="label">Artist</span>
+                    <h2>{{ album.artist }}</h2>
+                </div>
+                <div class="album-release">
+                    <span class="label">Released</span>
+                    <h3>{{ album.release_date|date:"F j, Y" }}</h3>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Track List and Review Form Section -->
+        <div class="tracks-review-section">
+            <!-- Track List -->
+            <div class="track-list-container">
+                <h2 class="section-title">
+                    <i class="bi bi-music-note-list me-2"></i>Tracks
+                </h2>
+                <div class="track-list">
+                    {% for track in tracks %}
+                    <div class="track-item {% cycle 'odd' 'even' %}">
+                        <div class="track-number">{{ track.track_number }}</div>
+                        <div class="track-title">{{ track.title }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Review Form Section -->
+            <div class="review-form-container">
+                <h2 class="section-title">
+                    <i class="bi bi-pencil-square me-2"></i>Your Review
+                </h2>
+                <div class="review-form">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="crispy-form-wrapper">
+                            {{ form|crispy }}
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="submit-review-button">
+                                <i class="bi bi-check-circle me-2"></i>Submit Review
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<style>
+    /* Container styling */
+    .album-detail-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+    
+    @media (min-width: 992px) {
+        .album-detail-container {
+            grid-template-columns: 4fr 5fr;
+        }
+    }
+    
+    /* Album Cover Section */
+    .album-cover-section {
+        background-color: var(--primary-dark);
+        border-radius: 16px;
+        padding: 2rem;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    
+    .cover-container {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .album-cover-img {
+        width: 100%;
+        display: block;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+    
+    .no-cover {
+        width: 100%;
+        aspect-ratio: 1/1;
+        background-color: var(--primary);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+    
+    .no-cover i {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.8;
+    }
+    
+    .album-info {
+        text-align: center;
+        width: 100%;
+    }
+    
+    .album-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--primary-light);
+    }
+    
+    .album-artist, .album-release {
+        margin-bottom: 1rem;
+    }
+    
+    .album-artist h2, .album-release h3 {
+        margin: 0;
+        font-weight: 600;
+        color: white;
+    }
+    
+    .label {
+        display: block;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--contrast-light);
+        margin-bottom: 0.25rem;
+    }
+    
+    /* Tracks & Review Section */
+    .tracks-review-section {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .track-list-container, .review-form-container {
+        background-color: white;
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    
+    .section-title {
+        color: var(--primary-dark);
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid var(--primary-light);
+        padding-bottom: 0.5rem;
+    }
+    
+    /* Track List Styling */
+    .track-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .track-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        transition: transform 0.2s;
+    }
+    
+    .track-item:hover {
+        transform: translateX(5px);
+    }
+    
+    .track-item.odd {
+        background-color: var(--primary-dark);
+        color: white;
+    }
+    
+    .track-item.even {
+        background-color: var(--primary);
+        color: white;
+    }
+    
+    .track-number {
+        flex: 0 0 40px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+    
+    .track-title {
+        flex: 1;
+        font-weight: 500;
+    }
+    
+    /* Review Form Styling */
+    .review-form {
+        padding: 1rem;
+    }
+    
+    .crispy-form-wrapper {
+        margin-bottom: 2rem;
+    }
+    
+    /* Custom styling for crispy form elements */
+    .crispy-form-wrapper label {
+        font-weight: 500;
+        color: var(--primary-dark);
+    }
+    
+    .crispy-form-wrapper .form-control {
+        border-radius: 8px;
+        border: 1px solid var(--primary-light);
+        padding: 0.75rem;
+        transition: all 0.2s;
+    }
+    
+    .crispy-form-wrapper .form-control:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(169, 151, 223, 0.3);
+    }
+    
+    .crispy-form-wrapper textarea.form-control {
+        min-height: 150px;
+    }
+    
+    .crispy-form-wrapper select.form-control {
+        background-color: white;
+    }
+    
+    /* Number input styling */
+    .crispy-form-wrapper input[type="number"] {
+        text-align: center;
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+    
+    /* Form actions */
+    .form-actions {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
+    .submit-review-button {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.75rem 2rem;
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+    
+    .submit-review-button:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(79, 81, 125, 0.2);
+    }
+    
+    /* Help text styling */
+    .crispy-form-wrapper .form-text {
+        color: var(--primary-dark);
+        font-style: italic;
+        margin-top: 0.5rem;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .album-cover-section {
+            padding: 1.5rem;
+        }
+        
+        .album-title {
+            font-size: 1.8rem;
+        }
+        
+        .form-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .submit-review-button {
+            width: 100%;
+        }
+    }
+</style>
 {% endblock content %}

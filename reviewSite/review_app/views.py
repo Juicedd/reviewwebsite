@@ -6,7 +6,8 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView
 from .models import Album, Review, Reviewer, Track, AlbumLink
 from .forms import ReviewForm
-
+from django.contrib.auth import logout
+from django.contrib import messages
 
 @login_required
 def album_list(request):

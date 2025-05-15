@@ -42,9 +42,11 @@
                 <a href="{% url 'album_list'  %}" class="list-group-item {% if request.path == '/' %}active{% endif %}">
                   <i class="bi bi-house-door me-2"></i> <span>Home</span>
                 </a>
+                {% if user.is_authenticated %}
                 <a href="{% url 'my_reviews' user_pk=user.id %}" class="list-group-item {% if '/my_reviews' in request.path %}active{% endif %}">
                   <i class="bi bi-chat-right-heart me-2"></i> <span>My Reviews</span>
                 </a>
+                {% endif %}
                 <a href="{% url 'dashboard' %}" class="list-group-item {% if request.path == '/dashboard/' %}active{% endif %}">
                   <i class="bi bi-bar-chart me-2"></i> <span>Dashboard</span>
                 </a>
@@ -55,9 +57,12 @@
 
               <!-- Logout link - wrap text in span -->
               <div class="logout-container">
-                <a href="{% url 'logout' %}" class="list-group-item">
-                  <i class="bi bi-box-arrow-right me-2"></i> <span>Logout</span>
-                </a>
+                <form method="post" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <button type="submit" class="list-group-item w-100 text-start border-0">
+                    <i class="bi bi-box-arrow-right me-2"></i> <span>Logout</span>
+                  </button>
+                </form>
               </div>
             </div>
           </div>

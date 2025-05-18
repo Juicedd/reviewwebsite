@@ -1,23 +1,23 @@
-<!-- templates/placeholder.html -->
-{% extends "base.html" %}
+{% extends "base.html" %}  
 
-{% block title %}{{ page_name }} - Coming Soon{% endblock %}
+{% block title %}{{ page_name }} - Coming Soon{% endblock %}  
 
-{% block content %}
-<div class="placeholder-container text-center py-5">
-    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
-        <div class="card-body p-5">
-            <h1 class="display-4 mb-4">{{ page_name }}</h1>
-            <div class="alert alert-info">
-                <i class="bi bi-tools me-2"></i> {{ message }}
-            </div>
-            <p class="lead mt-4">We're working hard to bring you this content soon.</p>
-            <div class="mt-4">
-                <a href="{% url 'album_list' %}" class="btn btn-primary">
-                    <i class="bi bi-house"></i> Back to Home
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+{% block content %} 
+<div class="placeholder-container text-center py-5">     
+    <!-- Removed max-width and using Bootstrap's container-fluid for full width -->
+    <div class="card shadow-sm mx-auto container-fluid" style="width: 80% !important;">         
+        <div class="card-body p-7">             
+            <h1 class="display-4 mb-4">{{ page_name }}</h1>             
+            <div class="alert alert-info">                 
+                <i class="bi bi-tools me-2"></i> {{ message }}             
+            </div>             
+            <p class="lead mt-4">We're working hard to bring you this content soon.</p>             
+            <div class="mt-4">                 
+                <a href="{% url 'album_list' %}" class="btn btn-primary">                     
+                    <i class="bi bi-house"></i> Back to Home                 
+                </a>             
+            </div>         
+        </div>     
+    </div> 
+</div> 
 {% endblock %}

@@ -2,14 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import UpdateView
 from .models import Album, Review, Reviewer, Track, AlbumLink
 from .forms import ReviewForm
 from django.contrib.auth import logout
-from django.contrib import messages
-from django.utils import timezone
-
+from django.db.models import Avg, Count, Sum, Min, Max
 
 
 @login_required
@@ -111,6 +107,54 @@ def my_reviews(request):
     }
     return render(request, 'my_reviews.html', context)
 
+def dashboard(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    user_reviews = Review.objects.filter(
+        reviewer__user=request.user,
+        album__editions__year=2025
+    )
+
+    user_review_count = len(user_reviews)
+    
+    # Album Score distribution - how many reviews at each score point
+    album_score_counts = user_reviews.values('album_score').annotate(count=Count('id'))
+    score_labels = [1,2,3,4,5,6,7,8,9,10]
+    
+    album_score_data = [0] * 10 # Setup score list with zeroes
+    for asc in album_score_counts:
+        album_score_data[asc['album_score']-1] = asc['count']
+
+    # Cover Art Score distribution - how many reviews at each score point
+    cover_score_counts = user_reviews.values('cover_score').annotate(count=Count('id'))
+    
+    cover_score_data = [0] * 10 # Setup score list with zeroes
+    for csc in cover_score_counts:
+        cover_score_data[csc['cover_score']-1] = csc['count']
+    
+    if user_review_count > 0:
+        user_avg_cover_score = user_reviews.aggregate(Avg('cover_score'))['cover_score__avg']
+        user_avg_album_score = user_reviews.aggregate(Avg('album_score'))['album_score__avg']
+    else:
+        user_avg_album_score = 0
+        user_avg_cover_score = 0
+    # # Album vs cover correlation
+    # albums = list(Review.objects.values('album__title', 'album_score', 'cover_art_score'))
+    
+    context = {
+        'score_labels': score_labels,
+        'album_score_data': album_score_data,
+        'cover_score_data': cover_score_data,
+        'user_review_count': user_review_count,
+        'user_avg_album_score': user_avg_album_score,
+        'user_avg_cover_score': user_avg_cover_score,
+        # 'site_avg_album_score': site_avg_album_score,
+        # 'reviewer_stats': list(reviewer_stats),
+        # 'album_correlation_data': albums,
+    }
+    
+    return render(request, 'dashboard.html', context)
 
 def about(request):
     """

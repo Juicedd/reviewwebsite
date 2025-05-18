@@ -8,6 +8,9 @@ from .models import Album, Review, Reviewer, Track, AlbumLink
 from .forms import ReviewForm
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.utils import timezone
+
+
 
 @login_required
 def album_list(request):
@@ -89,19 +92,19 @@ def review_update(request, pk):
 
 
 @login_required
-def my_reviews(request, user_pk):
-    """
-    View to display pending reviews for a user.
-    """
-    reviewer = get_object_or_404(Reviewer,user_id=user_pk)
-    albums = Album.objects.filter(editions__year=2025)
-    user_reviews = Review.objects.filter(reviewer=reviewer).filter(album__editions__year=2025)
-
-    # filter for pending albums
-    user_review_set = user_reviews.values_list('album_id', flat=True)
-    pending_albums = albums.exclude(id__in=user_review_set)
-
-    return render(request, 'my_reviews.html', {'pending_albums': pending_albums, 'user_reviews':user_reviews})
+def my_reviews(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+        
+    user_reviews = Review.objects.filter(reviewer__user=request.user)
+    reviewed_album_ids = user_reviews.values_list('album_id', flat=True)
+    pending_albums = Album.objects.filter(editions__year=2025).exclude(id__in=reviewed_album_ids)
+    
+    context = {
+        'user_reviews': user_reviews,
+        'pending_albums': pending_albums,
+    }
+    return render(request, 'my_reviews.html', context)
 
 
 def about(request):

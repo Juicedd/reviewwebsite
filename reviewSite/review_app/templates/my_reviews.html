@@ -29,7 +29,7 @@
                         <div class="review-card">
                             <a href="{% url 'album_detail' pk=user_review.album.pk %}" class="review-card-link">
                                 <div class="album-image-container">
-                                    <img class="album-image" src="{{ user_review.album.cover_image.url }}" alt="{{ user_review.album.title }} cover">
+                                    <img class="album-image" src="{{ user_review.al bum.cover_image.url }}" alt="{{ user_review.album.title }} cover">
                                 </div>
                                 <div class="album-info">
                                     <h3 class="album-title">{{ user_review.album.title }}</h3>

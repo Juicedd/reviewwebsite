@@ -11,29 +11,13 @@
 }
 
 /* Apply the primary font to headers */
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6 {
     font-family: var(--primary-font);
 }
 
 /* Apply the secondary font to regular text */
 body, p, span, div {
     font-family: var(--secondary-font);
-}
-
-.navbar {
-    background-color: var(--primary-light);
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
-}
-
-.navbar-brand, 
-.navbar-nav,
-.nav-link {
-    color: var(--contrast-dark);
-}
-
-.navbar-brand:hover, 
-.nav-link:hover {
-    color: var(--contrast-light);
 }
 
 body {
@@ -44,10 +28,11 @@ body {
     background-color: var(--primary);
     width: 18rem;
     margin: 1rem;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
 .card:hover {
-    background-color: var(--contrast-light);
+    background-color: var(--primary-light);
 }
 
 .card a {
@@ -150,96 +135,66 @@ tr:hover {
     background-color: var(--contrast-light); /* Light blue for hover effect */
 }
 
-/* Sidebar styling */
-.sidebar {
-    position: fixed; /* Make sidebar fixed */
+/* Sidebar container */
+.sidebar-column {
+    position: fixed;
+    left: 0;
     top: 0;
     bottom: 0;
-    left: 0;
+    transition: all 0.3s ease;
     z-index: 100;
+    padding: 0;
+}
+
+/* Sidebar styling */
+.sidebar {
     background-color: var(--primary-dark);
     color: var(--primary);
+    height: 100vh;
+    overflow-y: auto;
     padding-top: 20px;
-    height: 100vh; /* Full viewport height */
-    overflow-y: auto; /* Scrollable if needed */
+    padding-left: 12px;
+    padding-right: 12px;
 }
 
 .sidebar-inner {
-    padding-left: 15px;
-    padding-right: 15px;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Full height */
+    height: 100%;  /* This is crucial */
 }
 
-/* Create a flex container for nav items */
 .sidebar-nav-wrapper {
     display: flex;
     flex-direction: column;
-    height: calc(100% - 60px); /* Subtract header height */
-    overflow-y: hidden; /* Prevent overflow */
+    flex: 1;  /* This makes it take up available space */
+    height: 100%;
 }
 
-.sidebar-heading {
-    padding: 0.875rem 1.25rem;
-    font-size: 1.2rem;
+.sidebar-heading h1 {
+    padding-left: 1.2em
 }
 
+/* Toggle button styling */
 .sidebar-toggle {
-    color: var(--primary-light);
-    padding: 0;
-    margin-right: 5px;
-    transition: all 0.3s;
+    color: var(--primary-light) !important;
+    background-color: transparent !important;
+    border: none !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
 }
 
-.sidebar-toggle:hover {
-    color: var(--contrast-light);
+.sidebar-toggle:hover, 
+.sidebar-toggle:active, 
+.sidebar-toggle:focus {
+    color: var(--contrast-light) !important;
     transform: scale(1.1);
 }
 
-.sidebar-toggle i {
-    font-size: 1.25rem;
-}
-
-/* When sidebar is collapsed, show a different icon for the toggle */
-.sidebar.collapse:not(.show) + .navbar-toggler + .content-wrapper .sidebar-expand {
-    display: block;
-}
-
-.sidebar-expand {
-    display: none;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1030;
-}
-
-/* Mobile toggle styling */
-.navbar-toggler {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 1030;
-    background-color: var(--primary-dark);
-    color: var(--primary-light);
-    border-radius: 4px;
-    padding: 8px 12px;
-}
-
-/* Main navigation links - allow these to scroll if needed */
-.main-nav {
-    flex: 1 1 auto;
-    overflow-y: auto; /* Scrollable section */
-    margin-bottom: 10px; /* Space before logout */
-}
-
-/* Logout container - stays at bottom */
 .logout-container {
-    flex-shrink: 0; /* Prevent shrinking */
-    margin-top: auto; /* Push to bottom */
-    padding-bottom: 20px; /* Space at bottom */
-    border-top: 1px solid rgba(255,255,255,0.1); /* Optional divider */
-    padding-top: 10px; /* Space after divider */
+    margin-top: auto;  /* This pushes it to the bottom */
+    padding-top: 10px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 .list-group-item {
@@ -262,28 +217,60 @@ tr:hover {
     color: var(--contrast-dark);
 }
 
-/* Content container */
-.content {
-    padding: 20px;
+/* Sidebar column container */
+.sidebar-column {
+    transition: all 0.3s ease;
 }
 
-/* Adjust main content to account for fixed sidebar */
-@media (min-width: 768px) {
-    .content-wrapper {
-        margin-left: 25%; /* Adjust based on your col-md-3 width */
-    }
+/* When sidebar is collapsed - show only icons */
+.sidebar-column.collapsed {
+    width: 5rem !important; /* Fixed width when collapsed */
 }
 
+.sidebar-column.collapsed .sidebar {
+    width: 5rem !important;
+}
+
+/* Adjust text in collapsed sidebar */
+.sidebar-column.collapsed .list-group-item span,
+.sidebar-column.collapsed h1 {
+    display: none; /* Hide text */
+}
+
+/* Center icons in collapsed mode */
+.sidebar-column.collapsed .list-group-item,
+.sidebar-column.collapsed .logout-container a {
+    text-align: center;
+    padding: 0.75rem 0;
+}
+
+/* Remove margin from icons when collapsed */
+.sidebar-column.collapsed .list-group-item i,
+.sidebar-column.collapsed .logout-container i {
+    margin-right: 0 !important; 
+    font-size: 1.5rem;
+}
+
+/* Adjust padding in collapsed state */
+.sidebar-column.collapsed .sidebar-inner {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Adjust content margin when sidebar is collapsed */
 @media (min-width: 992px) {
-    .content-wrapper {
-        margin-left: 16.666667%; /* Adjust based on your col-lg-2 width */
+    .sidebar-column.collapsed ~ .content-wrapper {
+        margin-left: 5rem;
     }
 }
 
-/* For smaller screens */
-@media (max-width: 767.98px) {
-    .sidebar {
-        position: static; /* Remove fixed positioning on small screens */
-        min-height: auto;
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .sidebar-column.collapsed ~ .content-wrapper {
+        margin-left: 5rem;
     }
+}
+
+.sidebar-column.collapsed .sidebar-heading {
+    justify-content: center !important;
+    padding: 0.875rem 0;
 }

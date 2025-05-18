@@ -98,7 +98,10 @@ def my_reviews(request):
     if not request.user.is_authenticated:
         return redirect('login')
         
-    user_reviews = Review.objects.filter(reviewer__user=request.user)
+    user_reviews = Review.objects.filter(
+        reviewer__user=request.user,
+        album__editions__year=2025
+    )
     reviewed_album_ids = user_reviews.values_list('album_id', flat=True)
     pending_albums = Album.objects.filter(editions__year=2025).exclude(id__in=reviewed_album_ids)
     

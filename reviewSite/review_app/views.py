@@ -77,7 +77,9 @@ def review_update(request, pk):
     """
     View to displey the album review page.
     """
-    review = get_object_or_404(Review, pk=pk)
+    review = get_object_or_404(Review, reviewer__user=request.user, album=pk)
+
+    # review = get_object_or_404(Review, pk=pk)
     tracks = Track.objects.filter(album=review.album)
 
     if request.method == 'POST':

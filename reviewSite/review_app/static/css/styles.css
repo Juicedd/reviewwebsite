@@ -37,25 +37,27 @@ div {
 /* Web Layout Settings */
 nav {
   display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin-top: 1.5rem;
-  margin-left: 12px;
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 101;
 }
 
-nav button,
-.sidebar_header button {
+nav button {
   background-color: var(--primary);
   border: none;
   color: white;
   padding: 4px 4px;
   border-radius: 6px;
-  font-weight: 500;
-  transition: all 0.2s;
+  transition: transform ease-in 0.4s;
   white-space: nowrap;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: fit-content;
+  width: 36px;
+  height: 36px;
+}
+
+.clicked {
+  transform: rotate(90deg);
 }
 
 .sidebar_header button {
@@ -82,7 +84,7 @@ aside {
   /* Sidebar Styling */
   background-color: var(--primary-dark);
   color: var(--primary);
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
   padding-top: 1.5rem;
   padding-left: 12px;
@@ -100,6 +102,7 @@ main {
   grid-row-start: 1;
   display: flex;
   flex-direction: row;
+  padding-inline-start: 0.5rem;
 }
 
 .sidebar_header h1 {
@@ -128,7 +131,7 @@ main {
   background-color: var(--primary-dark);
   color: var(--primary-light);
   border: none;
-  padding: 0.5rem 1.25rem;
+  padding: 0.5rem 0.5rem;
   border-top-left-radius: 0.5rem !important; /* Add this line */
   border-bottom-left-radius: 0.5rem !important; /* Add this line */
   font-weight: 700;
@@ -171,7 +174,9 @@ main {
   font-size: 2.5rem;
 }
 
-.content_body {
+.content_body_list,
+.content_body_details,
+.content_body_reviews {
   display: grid;
   grid-template-columns: 1fr;
   margin: 2rem;
@@ -282,20 +287,48 @@ tr:hover {
 
   aside {
     position: fixed;
-    width: 200px;
-    display: none;
+    width: 100vw;
+    height: 100vh;
+    transform: translateX(-100%);
     z-index: 100;
+    transition: transform ease-in 0.8s;
   }
 
-  nav,
-  .show_aside {
+  nav {
     display: grid;
   }
 
-  .sidebar_header button {
-    display: block;
+  .show_aside {
+    transform: translateX(0%);
+  }
+
+  .sidebar_header {
+    margin-inline-start: 2.5rem;
+  }
+
+  .sidebar_nav {
+    row-gap: 1rem;
+    margin-inline-start: 2.5rem;
+    margin-block-start: 1rem;
+  }
+
+  .sidebar_logout_container {
+    margin-inline-start: 2.5rem;
+  }
+
+  .sidebar_nav_item {
+    padding: 0.5rem 0.5rem;
+    font-size: x-large;
+  }
+
+  .content_header h1 {
+    font-size: x-large;
   }
 }
 
 @media (max-width: 576px) {
+  .sidebar_nav_item {
+    padding: 1rem 1rem;
+    font-size: xx-large;
+  }
 }

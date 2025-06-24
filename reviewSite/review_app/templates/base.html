@@ -27,6 +27,11 @@
       type="text/css"
       href="{% static 'css/album_detail.css' %}"
     />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/my_reviews.css' %}"
+    />
     <title>Album Top 30 of 2025</title>
     <link
       rel="stylesheet"
@@ -40,8 +45,8 @@
   </head>
   <body>
     <nav>
-      <button onclick="toggleSidebar()">
-        <i class="bi bi-list"></i>
+      <button id="burger" onclick="toggleSidebar()">
+        <i class="bi bi-list" style="font-size: 1.5rem"></i>
       </button>
     </nav>
     <aside id="sidebar">{% include "sidebar.html" %}</aside>

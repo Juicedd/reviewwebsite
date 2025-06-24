@@ -1,5 +1,5 @@
 /* Content Body Layout */
-.content_body {
+.content_body_details {
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: "info tracklist review";
 }
@@ -17,7 +17,7 @@
 }
 
 @media only screen and (max-width: 992px) {
-  .content_body {
+  .content_body_details {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "info tracklist"
@@ -31,7 +31,7 @@
 }
 
 @media only screen and (max-width: 576px) {
-  .content_body {
+  .content_body_details {
     grid-template-columns: 1fr;
     grid-template-areas:
       "info"

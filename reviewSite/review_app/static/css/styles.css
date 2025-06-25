@@ -176,7 +176,8 @@ main {
 
 .content_body_list,
 .content_body_details,
-.content_body_reviews {
+.content_body_reviews,
+.content_body_create {
   display: grid;
   grid-template-columns: 1fr;
   margin: 2rem;

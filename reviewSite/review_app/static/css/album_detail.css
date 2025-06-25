@@ -158,6 +158,11 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  background-color: var(--primary-light);
+  border-radius: 16px;
+  padding: 2rem;
+  color: white;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .tracklist_header {

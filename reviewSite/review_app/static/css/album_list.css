@@ -20,6 +20,8 @@
   border-radius: 12px;
   background-color: var(--primary-dark);
   transition: background-color 0.3s ease;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .card:hover .cover-frame {
@@ -155,7 +157,7 @@
 }
 
 @media only screen and (max-width: 1200px) {
-    .content_body_list {
+  .content_body_list {
     grid-template-columns: 1fr 1fr 1fr;
   }
 

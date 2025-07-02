@@ -64,8 +64,12 @@ body {
   overflow-x: hidden;
   background-color: var(--contrast-light);
   display: grid;
-  grid-template-columns: 175px 1fr;
+  grid-template-columns: 200px 1fr;
   grid-template-areas: "sidebar main";
+}
+
+body.minimized {
+  grid-template-columns: 55px 1fr;
 }
 
 aside {
@@ -95,15 +99,31 @@ main {
 /* Sidebar Layout */
 .sidebar_header {
   grid-row-start: 1;
-  display: flex;
-  flex-direction: row;
-  padding-inline-start: 0.5rem;
-  align-items: center;
-  gap: 8px;
+  padding: 0.5rem 0.5rem;
 }
 
 .sidebar_header h1 {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  font-weight: 500;
   font-size: x-large;
+}
+
+.sidebar_header h1 i {
+  padding: 4px;
+}
+
+.sidebar_header.minimized {
+  padding: 0.5rem 0rem;
+}
+
+.sidebar_header h1 i:hover {
+  background-color: var(--primary-light);
+  color: var(--contrast-dark);
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 .sidebar_nav {
@@ -126,6 +146,11 @@ main {
   border-bottom-left-radius: 0.5rem !important; /* Add this line */
   font-weight: 700;
   font-size: medium;
+}
+
+.sidebar_header.minimized h1 span,
+.sidebar_nav_item.minimized span {
+  display: none;
 }
 
 .sidebar_nav_item:hover {

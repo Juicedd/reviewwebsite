@@ -66,6 +66,7 @@ body {
   display: grid;
   grid-template-columns: 200px 1fr;
   grid-template-areas: "sidebar main";
+  transition: all 1s ease;
 }
 
 body.minimized {
@@ -99,33 +100,70 @@ main {
 /* Sidebar Layout */
 .sidebar_header {
   grid-row-start: 1;
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem 0rem;
 }
 
 .sidebar_header h1 {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
-  justify-content: space-between;
+  gap: 12px;
   font-weight: 500;
   font-size: x-large;
 }
 
-.sidebar_header h1 i {
+/* Sidebar Minimize Styling */
+#sidebarToggle {
   padding: 4px;
+  height: 28px;
+  width: auto;
+  fill: var(--primary);
 }
 
-.sidebar_header.minimized {
-  padding: 0.5rem 0rem;
+#arrow1,
+#arrow2 {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 1s ease;
+  transform: rotate(0deg);
 }
 
-.sidebar_header h1 i:hover {
+#arrow1.minimized,
+#arrow2.minimized {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: rotate(180deg);
+}
+
+#arrow1.minimized {
+  transform: rotate(-180deg);
+}
+
+#arrow2.minimized {
+  transform: rotate(180deg);
+}
+
+#sidebarToggle:hover {
   background-color: var(--primary-light);
   color: var(--contrast-dark);
   border-radius: 12px;
   cursor: pointer;
 }
 
+.sidebar_header.minimized h1 span,
+.sidebar_nav_item.minimized span {
+  transition: all 1s ease;
+  opacity: 0;
+  scale: 0;
+}
+
+.sidebar_header h1 span,
+.sidebar_nav_item span {
+  transition: all 1s ease;
+  opacity: 1;
+  scale: 1;
+}
+
+/* Sidebar Navigation Styling */
 .sidebar_nav {
   grid-row-start: 2;
   display: flex;
@@ -146,11 +184,6 @@ main {
   border-bottom-left-radius: 0.5rem !important; /* Add this line */
   font-weight: 700;
   font-size: medium;
-}
-
-.sidebar_header.minimized h1 span,
-.sidebar_nav_item.minimized span {
-  display: none;
 }
 
 .sidebar_nav_item:hover {

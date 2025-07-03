@@ -40,7 +40,6 @@ function toggleSidebar() {
   }
   document.getElementById('layout').classList.toggle('minimized');
   document.getElementById('sidebarHeader').classList.toggle('minimized');
-
-  document.getElementById('sidebarToggle').classList.toggle('bi-arrows-collapse-vertical');
-  document.getElementById('sidebarToggle').classList.toggle('bi-arrows-expand-vertical');
+  document.getElementById('arrow1').classList.toggle('minimized');
+  document.getElementById('arrow2').classList.toggle('minimized');
 }

@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -17,81 +17,44 @@
       type="text/css"
       href="{% static 'css/styles.css' %}"
     />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/album_list.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/album_detail.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/my_reviews.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/create_review.css' %}"
+    />
     <title>Album Top 30 of 2025</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <script type="text/javascript" src="{% static 'js/sidebar.js' %}"></script>
   </head>
-
-  <body>
-    <div class="row">
-      <!-- Sidebar -->
-      <div class="col-md-3 col-lg-2 d-md-block sidebar-column" id="sidebarContainer">
-        <div class="sidebar" id="sidebarMenu">
-          <div class="sidebar-inner">
-            <!-- Top header with logo and toggle button -->
-            <div class="sidebar-heading d-flex justify-content-between align-items-center">
-              <h1>Melodyze</h1>
-              <!-- Collapse button -->
-              <button class="btn btn-link sidebar-toggle" type="button">
-                <i class="bi bi-arrows-collapse-vertical"></i>
-              </button>
-            </div>
-            
-            <div class="sidebar-nav-wrapper">
-              <!-- Main navigation links - wrap text in span tags -->
-              <div class="list-group main-nav">
-                <a href="{% url 'album_list'  %}" class="list-group-item {% if request.path == '/' %}active{% endif %}">
-                  <i class="bi bi-house-door me-2"></i> <span>Home</span>
-                </a>
-                <a href="{% url 'my_reviews' %}" class="list-group-item {% if request.path == '/my_reviews/' %}active{% endif %}">
-                  <i class="bi bi-chat-right-heart me-2"></i> <span>My Reviews</span>
-                </a>
-                <a href="{% url 'dashboard' %}" class="list-group-item {% if request.path == '/dashboard/' %}active{% endif %}">
-                  <i class="bi bi-bar-chart me-2"></i> <span>Dashboard</span>
-                </a>
-                <a href="{% url 'archive'  %}" class="list-group-item {% if request.path == '/archive/' %}active{% endif %}">
-                  <i class="bi bi-archive me-2"></i> <span>Archive</span>
-                </a>
-              </div>
-
-              <!-- Logout link - wrap text in span -->
-              <div class="logout-container">
-                <form method="post" action="{% url 'logout' %}">
-                  {% csrf_token %}
-                  <button type="submit" class="list-group-item w-100 text-start border-0">
-                    <i class="bi bi-box-arrow-right me-2"></i> <span>Logout</span>
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <main class="col-md-9 col-lg-10 ms-auto content-wrapper">{% block content %} {% endblock %}</main>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      // Simple sidebar toggle logic
-      document.addEventListener('DOMContentLoaded', function() {
-        const toggleBtn = document.querySelector('.sidebar-toggle');
-        const sidebarContainer = document.getElementById('sidebarContainer');
-        const sidebar = document.getElementById('sidebarMenu');
-        const content = document.querySelector('.content-wrapper');
-        
-        toggleBtn.addEventListener('click', function() {
-          sidebarContainer.classList.toggle('collapsed');
-          
-          // Change icon
-          const icon = this.querySelector('i');
-          if (sidebarContainer.classList.contains('collapsed')) {
-            icon.classList.remove('bi-arrows-collapse-vertical');
-            icon.classList.add('bi-arrows-expand-vertical');
-          } else {
-            icon.classList.remove('bi-arrows-expand-vertical');
-            icon.classList.add('bi-arrows-collapse-vertical');
-          }
-        });
-      });
-    </script>
+  <body id="layout">
+    <nav>
+      <button id="burger" onclick="toggleSidebar()">
+        <i class="bi bi-list" style="font-size: 1.5rem"></i>
+      </button>
+    </nav>
+    <aside id="sidebar">{% include "sidebar.html" %}</aside>
+    <main>{% block content %} {% endblock %}</main>
   </body>
 </html>

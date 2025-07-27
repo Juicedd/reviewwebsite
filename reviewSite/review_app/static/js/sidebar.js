@@ -1,39 +1,45 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the sidebar toggle button
-    const sidebarToggle = document.querySelector('.sidebar-toggle');
-    const sidebar = document.getElementById('sidebarMenu');
-    
-    // Add click event to toggle the icon
-    if (sidebarToggle) {
-      sidebarToggle.addEventListener('click', function() {
-        // Toggle the icon between left and right arrow
-        const icon = this.querySelector('i');
-        
-        // Wait for the collapse animation to complete
-        setTimeout(function() {
-          if (sidebar.classList.contains('show')) {
-            icon.classList.remove('bi-arrow-right-circle');
-            icon.classList.add('bi-arrow-left-circle');
-          } else {
-            icon.classList.remove('bi-arrow-left-circle');
-            icon.classList.add('bi-arrow-right-circle');
-          }
-        }, 350); // Bootstrap collapse animation takes ~350ms
-      });
+// Mobile Sidebar Function
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('show_aside');
+  document.getElementById('burger').classList.toggle('clicked');
+}
+
+// Web sidebar Function
+document.addEventListener("DOMContentLoaded", () => {
+  loadSidebarState();
+  const toggle = document.getElementById('sidebarToggle');
+  toggle.addEventListener("click", () => {
+    const currentState = sessionStorage.getItem("sidebarState")
+    console.log("current State:" + currentState);
+    if (currentState) {
+      const newState = currentState === "open" ? "minimized" : "open";
+      saveSidebarState(newState);
+    } else {
+      saveSidebarState("minimized");
     }
-    
-    // Handle initial state
-    function checkSidebarState() {
-      if (window.innerWidth < 768) {
-        sidebar.classList.remove('show');
-      } else {
-        sidebar.classList.add('show');
-      }
-    }
-    
-    // Check initial state
-    checkSidebarState();
-    
-    // Check on window resize
-    window.addEventListener('resize', checkSidebarState);
+    toggleSidebar();
   });
+});
+
+function saveSidebarState(state) {
+  console.log("saving state: " + state);
+  sessionStorage.setItem("sidebarState", state)
+}
+
+function loadSidebarState() {
+  const state = sessionStorage.getItem("sidebarState");
+  if (state === 'minimized') {
+    toggleSidebar(); // Default is open
+  }
+}
+
+function toggleSidebar() {
+  let items = document.getElementsByClassName('sidebar_nav_item');
+  for (let index = 0; index < items.length; index++) {
+    items[index].classList.toggle('minimized');
+  }
+  document.getElementById('layout').classList.toggle('minimized');
+  document.getElementById('sidebarHeader').classList.toggle('minimized');
+  document.getElementById('arrow1').classList.toggle('minimized');
+  document.getElementById('arrow2').classList.toggle('minimized');
+}

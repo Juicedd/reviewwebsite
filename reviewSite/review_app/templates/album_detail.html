@@ -13,27 +13,27 @@
                 <img src="{{ album.cover_image.url }}" alt="{{ album.title }} Cover Image" />
             {% else %}
                 <div class="no_cover">
-                    <i class="bi bi-disc"></i>
+                    <i class="bi bi-disc" aria-hidden="true"></i>
                     <p>No cover image available</p>
                 </div>
             {% endif %}
         </div>
         
-        <div class="album-details">
-            <h1 class="title">{{ album.title }}</h1>
+        <div class="album_details">
+            <h2 class="title">{{ album.title }}</h2>
             <div class="artist">
                 <span class="label">Artist</span>
-                <h2>{{ album.artist }}</h2>
+                <p>{{ album.artist }}</p>
             </div>
             <div class="release">
                 <span class="label">Released</span>
-                <h3>{{ album.release_date|date:"F j, Y" }}</h3>
+                <p>{{ album.release_date|date:"F j, Y" }}</p>
             </div>
         {% if links %}
             <div class="streaming_links">
                 {% for link in links %}
-                <a href="{{ link.url }}" target="_blank" class="streaming_button">
-                    <i class="bi bi-music-note-beamed me-2"></i>Listen on {{ link.link_type }}
+                <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="streaming_button">
+                    <i class="bi bi-music-note-beamed me-2" aria-hidden="true"></i>Listen on {{ link.link_type }}
                 </a>
                 {% endfor %}
             </div>
@@ -44,23 +44,27 @@
     <div class="tracklist_section">
         <div class="tracklist_header">
             <h2>
-                <i class="bi bi-music-note-list me-2"></i>Tracks
+                <i class="bi bi-music-note-list me-2" aria-hidden="true"></i>Tracks
             </h2>
         </div>
         <div class="tracklist">
-            {% for track in tracks %}
-            <div class="track_item {% cycle 'odd' 'even' %}">
-                <div class="track_number">{{ track.track_number }}</div>
-                <div class="track_title">{{ track.title }}</div>
-            </div>
-            {% endfor %}
+            {% if tracks %}
+                {% for track in tracks %}
+                <div class="track_item {% cycle 'odd' 'even' %}">
+                    <div class="track_number">{{ track.track_number }}</div>
+                    <div class="track_title">{{ track.title }}</div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p> No tracks available </p>
+            {% endif %}
         </div>
     </div>
     
     <div class="review_section">
         {% if review %}
         <h2 class="review_title">
-            <i class="bi bi-chat-right-quote me-2"></i>Your Review
+            <i class="bi bi-chat-right-quote me-2" aria-hidden="true"></i>Your Review
         </h2>
         <div class="review_content">
             <div class="review_text">
@@ -86,7 +90,7 @@
             </div>
             <div class="review_actions">
                 <a class="edit_review_button" href="{% url 'review_update' album.pk %}">
-                    <i class="bi bi-pencil me-2"></i>Edit Review
+                    <i class="bi bi-pencil me-2" aria-hidden="true"></i>Edit Review
                 </a>
             </div>
         </div>
@@ -97,7 +101,7 @@
             <h2 class="write_review_title">Ready to share your thoughts?</h2>
             <p class="write_review_text">Rate the album, pick your favorite track, and share your insights.</p>
             <a class="write_review_button" href="{% url 'review_create' album.pk %}">
-                <i class="bi bi-plus-circle me-2"></i>Write a Review
+                <i class="bi bi-plus-circle me-2" aria-hidden="true"></i>Write a Review
             </a>
         </div>
         

@@ -5,7 +5,9 @@ from django.db.models import Q
 from .models import Album, Review, Reviewer, Track, AlbumLink
 from .forms import ReviewForm
 from django.contrib.auth import logout
-from django.db.models import Avg, Count, Sum, Min, Max
+from django.contrib import messages
+from django.utils import timezone
+
 
 
 @login_required
@@ -106,15 +108,6 @@ def my_reviews(request):
         'pending_albums': pending_albums,
     }
     return render(request, 'my_reviews.html', context)
-
-def dashboard(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-
-    user_reviews = Review.objects.filter(
-        reviewer__user=request.user,
-        album__editions__year=2025
-    )
 
     user_review_count = len(user_reviews)
     

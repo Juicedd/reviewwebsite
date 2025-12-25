@@ -6,6 +6,10 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView
 from .models import Album, Review, Reviewer, Track, AlbumLink
 from .forms import ReviewForm
+from django.contrib.auth import logout
+from django.contrib import messages
+from django.utils import timezone
+
 
 
 @login_required
@@ -73,7 +77,9 @@ def review_update(request, pk):
     """
     View to displey the album review page.
     """
-    review = get_object_or_404(Review, pk=pk)
+    review = get_object_or_404(Review, reviewer__user=request.user, album=pk)
+
+    # review = get_object_or_404(Review, pk=pk)
     tracks = Track.objects.filter(album=review.album)
 
     if request.method == 'POST':
@@ -88,19 +94,22 @@ def review_update(request, pk):
 
 
 @login_required
-def pending_reviews(request, user_pk):
-    """
-    View to display pending reviews for a user.
-    """
-    reviewer = get_object_or_404(Reviewer,user_id=user_pk)    
-    albums = Album.objects.filter(editions__year=2025)
-    user_reviews = Review.objects.filter(reviewer=reviewer, album__editions__year=2025)
-
-    # filter for pending albums
-    user_review_set = user_reviews.values_list('album_id', flat=True)
-    pending_albums = albums.exclude(id__in=user_review_set)
-
-    return render(request, 'pending_reviews.html', {'pending_albums': pending_albums, 'user_reviews':user_reviews})
+def my_reviews(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+        
+    user_reviews = Review.objects.filter(
+        reviewer__user=request.user,
+        album__editions__year=2025
+    )
+    reviewed_album_ids = user_reviews.values_list('album_id', flat=True)
+    pending_albums = Album.objects.filter(editions__year=2025).exclude(id__in=reviewed_album_ids)
+    
+    context = {
+        'user_reviews': user_reviews,
+        'pending_albums': pending_albums,
+    }
+    return render(request, 'my_reviews.html', context)
 
 
 def about(request):
@@ -115,3 +124,11 @@ def contact(request):
     View to display the contact page.
     """
     return render(request, 'contact.html')
+
+
+def placeholder(request, page_name=None):
+    context = {
+        'page_name': page_name or 'This Page',
+        'message': 'This page is under construction.'
+    }
+    return render(request, 'placeholder.html', context)

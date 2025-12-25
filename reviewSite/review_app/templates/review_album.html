@@ -2,44 +2,78 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<div class="container mt-4">
-  <!-- Wrap content in a container for responsiveness -->
-  <div class="row align-items-start gx-5 d-flex align-items-stretch">
-      <div class="col-md-6 cover-frame text-center d-flex flex-column">
-          {% if album.cover_image %}
-              <img src="{{ album.cover_image.url }}" class="img-fluid" alt="{{ album.title }} Cover Image" />
-          {% else %}
-              <p>No cover image available</p>
-          {% endif %}
-          <h1 class="info-text">{{ album.title }}</h1>
-          <h5>released by</h5>
-          <h2 class="info-text">{{ album.artist }}</h2>
-          <h5>on</h5>
-          <h3 class="info-text">{{ album.release_date|date:"d-m-Y" }}</h3>
-          <div class="mt-auto"></div> <!-- Spacer to push content to the top -->
-      </div>
-      <div class="col-md-6 tracks-frame text-center align-self-center d-flex flex-column">
-          <div class="row flex-grow-1">
-              <h2>Tracks</h2>
-              <table class="track-table">
-                  {% for track in tracks %}
-                  <tr class="{% cycle 'odd' 'even' %}">
-                      <td class="left-align">{{ track.track_number }}</td>
-                      <td class="right-align">{{ track.title }}</td>
-                  </tr>
-                  {% endfor %}
-              </table>
-          </div>
-          <div class="row mt-auto">
-              <h1>Review the album</h1>
-              <form method="POST">
-                  {% csrf_token %}
-                  {{ form|crispy }}
-                  <button type="submit" class="btn btn-primary align-self-center">Submit Review</button>
-              </form>
-          </div>
-      </div>
-  </div>
-</div>
+<div class="content_header">
+    <h1>Write Your Review</h1>
+<div class="content_header_separator"></div>
+    
+<div class="content_body_details">
+    <div class="info_section">
+        <div class="cover_image">
+            {% if album.cover_image %}
+                <img src="{{ album.cover_image.url }}" alt="{{ album.title }} Cover Image" />
+            {% else %}
+                <div class="no_cover">
+                    <i class="bi bi-disc"></i>
+                    <p>No cover image available</p>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="album-details">
+            <h1 class="title">{{ album.title }}</h1>
+            <div class="artist">
+                <span class="label">Artist</span>
+                <h2>{{ album.artist }}</h2>
+            </div>
+            <div class="release">
+                <span class="label">Released</span>
+                <h3>{{ album.release_date|date:"F j, Y" }}</h3>
+            </div>
+        {% if links %}
+            <div class="streaming_links">
+                {% for link in links %}
+                <a href="{{ link.url }}" target="_blank" class="streaming_button">
+                    <i class="bi bi-music-note-beamed me-2"></i>Listen on {{ link.link_type }}
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+        
+    <div class="tracklist_section">
+        <div class="tracklist_header">
+            <h2>
+                <i class="bi bi-music-note-list me-2"></i>Tracks
+            </h2>
+        </div>
+        <div class="tracklist">
+            {% for track in tracks %}
+            <div class="track_item {% cycle 'odd' 'even' %}">
+                <div class="track_number">{{ track.track_number }}</div>
+                <div class="track_title">{{ track.title }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 
+    <div class="review_section">
+        <h2 class="review_title">
+            <i class="bi bi-pencil-square me-2"></i>
+            <span>Your Review</span>
+        </h2>            
+        <div class="review-form">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="crispy-form-wrapper">
+                    {{ form|crispy }}
+                </div>
+                <button type="submit" class="submit-review-button">
+                    <i class="bi bi-check-circle me-2"></i>
+                    <span>Submit Review</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock content %}

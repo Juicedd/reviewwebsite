@@ -1,0 +1,283 @@
+/* Content Body Layout */
+.content_body_reviews {
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: none;
+  column-gap: 1.25rem;
+}
+
+/* Section Styling */
+.review-section {
+  background-color: var(--primary-dark);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--primary-light);
+}
+
+.section-title {
+  font-family: var(--primary-font);
+  font-weight: 600;
+  color: var(--contrast-light);
+  margin: 0;
+  margin-right: auto;
+  font-size: 1.5rem;
+}
+
+.badge {
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.bg-primary-dark {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.bg-primary-light {
+  background-color: var(--primary-light);
+  color: var(--contrast-dark);
+}
+
+/* Album List & Cards */
+.album-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-card {
+  background-color: var(--primary-light);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 1rem;
+}
+
+.review-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(79, 81, 125, 0.15);
+}
+
+.pending-card {
+  background-color: white;
+  border: 2px solid var(--primary-light);
+}
+
+.review-card-link {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  padding: 1rem;
+  background-color: var(--primary-light);
+}
+
+/* Album Image */
+.album-image-container {
+  position: relative;
+  width: fit-content;
+}
+
+.album-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Album Info */
+.album-info {
+  flex: 1;
+  padding: 0 1rem;
+  min-width: 0; /* Ensures text truncation works */
+}
+
+.album-title {
+  font-size: large;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--contrast-dark);
+}
+
+.album-artist {
+  font-size: large;
+  font-weight: 300;
+  margin: 0;
+  color: var(--primary-dark);
+}
+
+/* Scores */
+.scores-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.score {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.score i {
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+
+.music-score {
+  color: var(--primary-dark);
+}
+
+.cover-score {
+  color: var(--contrast-dark);
+}
+
+/* Review Button */
+.review-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.review-button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.review-button:hover {
+  background-color: var(--primary-dark);
+  transform: scale(1.1);
+}
+
+.review-button i {
+  font-size: 1rem;
+}
+
+.review-card:hover .review-overlay {
+  opacity: 1;
+}
+
+.review-cta {
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: var(--primary);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--primary-dark);
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+}
+
+/* Scrollbar styling */
+.album-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.album-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.album-list::-webkit-scrollbar-thumb {
+  background-color: var(--primary-light);
+  border-radius: 3px;
+}
+
+.review-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(79, 81, 125, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Responsive adjustments */
+@media only screen and (min-width: 1400px) {
+  .album-title,
+  .album-artist {
+    font-size: large;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .album-title,
+  .album-artist {
+    font-size: large;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .review-button-container {
+    display: none;
+  }
+
+  .review-card-link {
+    grid-template-columns: 1fr 4fr;
+  }
+
+  .album-title,
+  .album-artist {
+    font-size: medium;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .content_body_review_list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .content_body_review_list {
+    grid-template-columns: 1fr;
+  }
+}

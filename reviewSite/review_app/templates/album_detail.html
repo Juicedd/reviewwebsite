@@ -1,55 +1,111 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container mt-4">
-    <!-- Wrap content in a container for responsiveness -->
-    <div class="row align-items-start gx-5 d-flex align-items-stretch">
-        <div class="col-md-6 cover-frame text-center d-flex flex-column">
+<div class="content_header">
+    <h1>Album Details</h1>
+    <div class="content_header_separator"></div>
+</div>
+
+<div class="content_body_details">
+    <div class="info_section">
+        <div class="cover_image">
             {% if album.cover_image %}
-                <img src="{{ album.cover_image.url }}" class="img-fluid" alt="{{ album.title }} Cover Image" />
+                <img src="{{ album.cover_image.url }}" alt="{{ album.title }} Cover Image" />
             {% else %}
-                <p>No cover image available</p>
+                <div class="no_cover">
+                    <i class="bi bi-disc" aria-hidden="true"></i>
+                    <p>No cover image available</p>
+                </div>
             {% endif %}
-            <h1 class="info-text">{{ album.title }}</h1>
-            <h5>released by</h5>
-            <h2 class="info-text">{{ album.artist }}</h2>
-            <h5>on</h5>
-            <h3 class="info-text">{{ album.release_date|date:"d-m-Y" }}</h3>
-            {% if links %}
+        </div>
+        
+        <div class="album_details">
+            <h2 class="title">{{ album.title }}</h2>
+            <div class="artist">
+                <span class="label">Artist</span>
+                <p>{{ album.artist }}</p>
+            </div>
+            <div class="release">
+                <span class="label">Released</span>
+                <p>{{ album.release_date|date:"F j, Y" }}</p>
+            </div>
+        {% if links %}
+            <div class="streaming_links">
                 {% for link in links %}
-                    <a href="{{ link.url }}" target="_blank" class="btn btn-primary btn-lg mt-4 mb-4">
-                        <i class="fas fa-link"></i> Listen on {{ link.link_type }}
-                    </a>
+                <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="streaming_button">
+                    <i class="bi bi-music-note-beamed me-2" aria-hidden="true"></i>Listen on {{ link.link_type }}
+                </a>
                 {% endfor %}
+            </div>
             {% endif %}
-            <div class="mt-auto"></div> <!-- Spacer to push content to the top -->
         </div>
-        <div class="col-md-6 tracks-frame text-center align-self-center d-flex flex-column">
-            <div class="row flex-grow-1">
-                <h2>Tracks</h2>
-                <table class="track-table">
-                    {% for track in tracks %}
-                    <tr class="{% cycle 'odd' 'even' %}">
-                        <td class="left-align">{{ track.track_number }}</td>
-                        <td class="right-align">{{ track.title }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
+    </div>
+
+    <div class="tracklist_section">
+        <div class="tracklist_header">
+            <h2>
+                <i class="bi bi-music-note-list me-2" aria-hidden="true"></i>Tracks
+            </h2>
+        </div>
+        <div class="tracklist">
+            {% if tracks %}
+                {% for track in tracks %}
+                <div class="track_item {% cycle 'odd' 'even' %}">
+                    <div class="track_number">{{ track.track_number }}</div>
+                    <div class="track_title">{{ track.title }}</div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p> No tracks available </p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="review_section">
+        {% if review %}
+        <h2 class="review_title">
+            <i class="bi bi-chat-right-quote me-2" aria-hidden="true"></i>Your Review
+        </h2>
+        <div class="review_content">
+            <div class="review_text">
+                {{ review.content|linebreaksbr }}
             </div>
-            <div class="row mt-auto">
-                {% if review %}
-                    <h2>Your Review</h2>
-                    <p>{{ review.content|linebreaksbr }}</p>
-                    <p>Album Score: {{ review.album_score }}</p>
-                    <p>Cover Score: {{ review.cover_score }}</p>
-                    <p>Favorite Track: {{ review.favorite_track }}</p>
-                    <p>Worst Track: {{ review.worst_track }}</p>
-                    <a class="btn btn-primary btn-lg mt-4 mb-4" href="{% url 'review_update' review.pk %}" role="button">Edit Review</a>
-                {% else %}
-                    <a class="btn btn-primary btn-lg mt-4 mb-4" href="{% url 'review_create' album.pk %}" role="button">Start writing your review!</a>
-                {% endif %}
+            <div class="review_stats">
+                <div class="stat_item">
+                    <span class="stat_label">Album Score</span>
+                    <div class="stat_value album_score">{{ review.album_score }}</div>
+                </div>
+                <div class="stat_item">
+                    <span class="stat_label">Cover Score</span>
+                    <div class="stat_value cover_score">{{ review.cover_score }}</div>
+                </div>
+                <div class="stat_item">
+                    <span class="stat_label">Favorite Track</span>
+                    <div class="stat_value">{{ review.favorite_track }}</div>
+                </div>
+                <div class="stat_item">
+                    <span class="stat_label">Worst Track</span>
+                    <div class="stat_value">{{ review.worst_track }}</div>
+                </div>
+            </div>
+            <div class="review_actions">
+                <a class="edit_review_button" href="{% url 'review_update' album.pk %}">
+                    <i class="bi bi-pencil me-2" aria-hidden="true"></i>Edit Review
+                </a>
             </div>
         </div>
+
+        {% else %}
+
+        <div class="write_review">
+            <h2 class="write_review_title">Ready to share your thoughts?</h2>
+            <p class="write_review_text">Rate the album, pick your favorite track, and share your insights.</p>
+            <a class="write_review_button" href="{% url 'review_create' album.pk %}">
+                <i class="bi bi-plus-circle me-2" aria-hidden="true"></i>Write a Review
+            </a>
+        </div>
+        
+        {% endif %}
     </div>
 </div>
 

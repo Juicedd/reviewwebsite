@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content_header">
+    <h1>My Reviews</h1>
+    <div class="content_header_separator"></div>
+</div>
+
+<div class="content_body_reviews">
+    <!-- Reviewed Albums Column -->
+    <div class="review-section reviewed-section">
+        <div class="section-header">
+            <h2 class="section-title">
+            <i class="bi bi-check-circle-fill me-2"></i>Reviewed
+            </h2>
+            <span class="badge rounded-pill bg-primary-dark">{{ user_reviews|length }}</span>
+        </div>
+
+        <div class="album-list">
+            {% if user_reviews %}
+                {% for user_review in user_reviews %}
+                    <div class="review-card">
+                        <a href="{% url 'album_detail' pk=user_review.album.pk %}" class="review-card-link">
+                            <div class="album-image-container">
+                                <img class="album-image" src="{{ user_review.album.cover_image.url }}" alt="{{ user_review.album.title }} cover">
+                            </div>
+                            <div class="album-info">
+                                <h3 class="album-title">{{ user_review.album.title }}</h3>
+                                <p class="album-artist">{{ user_review.album.artist }}</p>
+                            </div>
+                            <div class="scores-container">
+                                <div class="score music-score">
+                                    <i class="bi bi-music-note-beamed"></i>
+                                    <span>{{ user_review.album_score }}</span>
+                                </div>
+                                <div class="score cover-score">
+                                    <i class="bi bi-brush"></i>
+                                    <span>{{ user_review.cover_score }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <i class="bi bi-journal-album"></i>
+                    <p>You haven't reviewed any albums yet</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Pending Albums Column -->
+    <div class="review-section pending-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="bi bi-hourglass-split me-2"></i>Pending
+            </h2>
+            <span class="badge rounded-pill bg-primary-light text-contrast-dark">{{ pending_albums|length }}</span>
+        </div>
+        
+        <!-- Pending Albums List -->
+        <div class="album-list">
+            {% if pending_albums %}
+                {% for album in pending_albums %}
+                    <div class="review-card pending-card">
+                        <a href="{% url 'album_detail' pk=album.pk %}" class="review-card-link">
+                            <div class="album-image-container">
+                                <img class="album-image" src="{{ album.cover_image.url }}" alt="{{ album.title }} cover">
+                                <div class="review-overlay">
+                                    <span class="review-cta">Review Now</span>
+                                </div>
+                            </div>
+                            <div class="album-info">
+                                <h3 class="album-title">{{ album.title }}</h3>
+                                <p class="album-artist">{{ album.artist }}</p>
+                            </div>
+                            <div class="review-button-container">
+                                <button class="review-button">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <i class="bi bi-check2-all"></i>
+                    <p>You're all caught up! No pending albums</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
